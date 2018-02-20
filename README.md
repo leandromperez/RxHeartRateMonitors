@@ -1,6 +1,6 @@
 # RxHeartRateMonitors
 
-[![CI Status](http://img.shields.io/travis/Leandro Perez/RxHeartRateMonitors.svg?style=flat)](https://travis-ci.org/Leandro Perez/RxHeartRateMonitors)
+[![CI Status](http://img.shields.io/travis/leandromperez/RxHeartRateMonitors.svg?style=flat)](https://travis-ci.org/leandromperez/RxHeartRateMonitors)
 [![Version](https://img.shields.io/cocoapods/v/RxHeartRateMonitors.svg?style=flat)](http://cocoapods.org/pods/RxHeartRateMonitors)
 [![License](https://img.shields.io/cocoapods/l/RxHeartRateMonitors.svg?style=flat)](http://cocoapods.org/pods/RxHeartRateMonitors)
 [![Platform](https://img.shields.io/cocoapods/p/RxHeartRateMonitors.svg?style=flat)](http://cocoapods.org/pods/RxHeartRateMonitors)
