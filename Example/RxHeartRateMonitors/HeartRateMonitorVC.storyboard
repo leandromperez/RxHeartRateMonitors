@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="5un-Uc-WOO">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Heart Rate MonitorVC-->
+        <scene sceneID="iut-vD-x10">
+            <objects>
+                <viewController id="5un-Uc-WOO" customClass="HeartRateMonitorVC" customModule="RxHeartRateMonitors_Example" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="YTq-vS-IkO">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Device Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="RUT-hk-g50" userLabel="Name">
+                                <rect key="frame" x="16" y="100" width="343" height="27.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <color key="textColor" white="0.32000000000000001" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="State" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D28-Rf-dJn">
+                                <rect key="frame" x="16" y="303.5" width="86" height="27.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="86" id="aU1-tL-j6I"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <color key="textColor" red="0.22" green="0.26000000000000001" blue="0.28999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="State" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="RWh-qJ-D1C" userLabel="State Value">
+                                <rect key="frame" x="200" y="304" width="159" height="25.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <color key="textColor" red="0.27000000000000002" green="0.40999999999999998" blue="0.48999999999999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Xz-yx-vBQ">
+                                <rect key="frame" x="77" y="176.5" width="220" height="50"/>
+                                <color key="backgroundColor" red="0.23999999999999999" green="0.70999999999999996" blue="0.81000000000000005" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="uSN-VY-sGj"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <state key="normal" title="Connect button">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="disabled">
+                                    <color key="titleColor" cocoaTouchSystemColor="lightTextColor"/>
+                                </state>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Heartrate" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bBC-pF-EKk" userLabel="HeartRate">
+                                <rect key="frame" x="16" y="341" width="93.5" height="27.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <color key="textColor" red="0.22" green="0.26000000000000001" blue="0.28999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="N/A" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nQx-sk-BJ7" userLabel="HeartRate Value">
+                                <rect key="frame" x="200" y="341.5" width="159" height="25.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <color key="textColor" red="0.27000000000000002" green="0.40999999999999998" blue="0.48999999999999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="D28-Rf-dJn" firstAttribute="top" secondItem="0Xz-yx-vBQ" secondAttribute="bottom" constant="77" id="18D-kY-aDz"/>
+                            <constraint firstItem="D28-Rf-dJn" firstAttribute="centerY" secondItem="RWh-qJ-D1C" secondAttribute="centerY" id="ArH-5I-rQl"/>
+                            <constraint firstItem="D28-Rf-dJn" firstAttribute="leading" secondItem="bBC-pF-EKk" secondAttribute="leading" id="K7R-3r-EM0"/>
+                            <constraint firstItem="RUT-hk-g50" firstAttribute="trailing" secondItem="YTq-vS-IkO" secondAttribute="trailingMargin" id="PDp-FB-XdS"/>
+                            <constraint firstItem="bBC-pF-EKk" firstAttribute="top" secondItem="D28-Rf-dJn" secondAttribute="bottom" constant="10" id="RLt-SW-CfG"/>
+                            <constraint firstItem="0Xz-yx-vBQ" firstAttribute="leading" secondItem="ASb-Xb-bqY" secondAttribute="leading" constant="77" id="Rgc-Z7-5q6"/>
+                            <constraint firstItem="RUT-hk-g50" firstAttribute="centerX" secondItem="0Xz-yx-vBQ" secondAttribute="centerX" id="Se2-1i-gGl"/>
+                            <constraint firstItem="RUT-hk-g50" firstAttribute="trailing" secondItem="RWh-qJ-D1C" secondAttribute="trailing" id="Utv-E1-W6U"/>
+                            <constraint firstItem="RWh-qJ-D1C" firstAttribute="trailing" secondItem="nQx-sk-BJ7" secondAttribute="trailing" id="Xcd-JL-ELp"/>
+                            <constraint firstItem="RUT-hk-g50" firstAttribute="top" secondItem="ASb-Xb-bqY" secondAttribute="top" constant="80" id="YFT-Xu-QUi"/>
+                            <constraint firstItem="bBC-pF-EKk" firstAttribute="centerY" secondItem="nQx-sk-BJ7" secondAttribute="centerY" id="Yez-DT-H5D"/>
+                            <constraint firstItem="RWh-qJ-D1C" firstAttribute="leading" secondItem="nQx-sk-BJ7" secondAttribute="leading" id="ih1-c7-ihC"/>
+                            <constraint firstItem="RUT-hk-g50" firstAttribute="leading" secondItem="D28-Rf-dJn" secondAttribute="leading" id="kj8-tg-71Q"/>
+                            <constraint firstItem="RWh-qJ-D1C" firstAttribute="leading" secondItem="D28-Rf-dJn" secondAttribute="trailing" constant="98" id="m7r-Y5-keM"/>
+                            <constraint firstItem="RUT-hk-g50" firstAttribute="leading" secondItem="YTq-vS-IkO" secondAttribute="leadingMargin" id="uw1-n0-QFz"/>
+                            <constraint firstItem="0Xz-yx-vBQ" firstAttribute="top" secondItem="RUT-hk-g50" secondAttribute="bottom" constant="49" id="ysn-CY-gf2"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="ASb-Xb-bqY"/>
+                    </view>
+                    <connections>
+                        <outlet property="connectButton" destination="0Xz-yx-vBQ" id="gDZ-ln-oci"/>
+                        <outlet property="heartRateLabel" destination="nQx-sk-BJ7" id="RWk-se-VH2"/>
+                        <outlet property="nameLabel" destination="RUT-hk-g50" id="HBC-fN-jfz"/>
+                        <outlet property="stateLabel" destination="RWh-qJ-D1C" id="V2U-dK-7Z6"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cYt-1I-Wqz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="248.80000000000001" y="-314.39280359820094"/>
+        </scene>
+    </scenes>
+</document>

@@ -1,0 +1,13 @@
+platform :ios, '10.0'
+
+use_frameworks!
+
+target 'RxHeartRateMonitors_Example' do
+  
+  pod 'RxHeartRateMonitors', :path => '../'
+  pod 'R.swift'
+  pod 'RxBluetoothKit'
+  pod 'RxSwift'
+  pod 'RxCocoa'
+
+end

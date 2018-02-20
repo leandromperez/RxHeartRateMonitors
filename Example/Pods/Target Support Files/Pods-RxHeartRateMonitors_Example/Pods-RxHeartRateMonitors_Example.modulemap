@@ -1,0 +1,6 @@
+framework module Pods_RxHeartRateMonitors_Example {
+  umbrella header "Pods-RxHeartRateMonitors_Example-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="kCf-jP-7Hi">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="cXe-tA-Gpn">
+            <objects>
+                <navigationController id="kCf-jP-7Hi" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="pQA-XI-Ke6">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="We0-tO-ufK" kind="relationship" relationship="rootViewController" id="nFg-ci-vHY"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iXS-gy-gGz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1041" y="-38"/>
+        </scene>
+        <!--MainVC-->
+        <scene sceneID="9q3-gS-4Y2">
+            <objects>
+                <viewController id="We0-tO-ufK" customClass="MainVC" customModule="RxHeartRateMonitors_Example" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="dEL-MS-KzF"/>
+                        <viewControllerLayoutGuide type="bottom" id="JwQ-U6-KVM"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="PLv-j8-KCA">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IHS-sm-lzB">
+                                <rect key="frame" x="77" y="183" width="220" height="50"/>
+                                <color key="backgroundColor" red="0.23999999999999999" green="0.70999999999999996" blue="0.81000000000000005" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="5ih-11-nwq"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="220" id="WLu-xq-uWY"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <state key="normal" title="See Monitors">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="disabled">
+                                    <color key="titleColor" cocoaTouchSystemColor="lightTextColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="openMonitors" destination="We0-tO-ufK" eventType="touchUpInside" id="Fen-Mk-7qI"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2l9-55-fPq">
+                                <rect key="frame" x="77" y="260" width="220" height="50"/>
+                                <color key="backgroundColor" red="0.23999999999999999" green="0.70999999999999996" blue="0.81000000000000005" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="220" id="cl0-Zc-a39"/>
+                                    <constraint firstAttribute="height" constant="50" id="vEB-Fd-VRz"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <state key="normal" title="Auto Connect">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="disabled">
+                                    <color key="titleColor" cocoaTouchSystemColor="lightTextColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="openAutoConnect" destination="We0-tO-ufK" eventType="touchUpInside" id="U77-cu-QJV"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="IHS-sm-lzB" firstAttribute="centerX" secondItem="PLv-j8-KCA" secondAttribute="centerX" id="3Gb-9U-Cyx"/>
+                            <constraint firstItem="IHS-sm-lzB" firstAttribute="top" secondItem="dEL-MS-KzF" secondAttribute="bottom" constant="119" id="44l-hY-HQj"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="2l9-55-fPq" secondAttribute="trailing" constant="20" symbolic="YES" id="50T-bk-5y5"/>
+                            <constraint firstItem="2l9-55-fPq" firstAttribute="top" secondItem="IHS-sm-lzB" secondAttribute="bottom" constant="27" id="qGC-QJ-do0"/>
+                            <constraint firstItem="IHS-sm-lzB" firstAttribute="leading" secondItem="2l9-55-fPq" secondAttribute="leading" id="t3P-9a-rq3"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="Ah5-c5-kWa"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7zb-tg-puf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-215" y="-38"/>
+        </scene>
+    </scenes>
+</document>

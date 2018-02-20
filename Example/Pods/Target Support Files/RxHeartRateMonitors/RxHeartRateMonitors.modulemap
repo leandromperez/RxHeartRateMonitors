@@ -1,0 +1,6 @@
+framework module RxHeartRateMonitors {
+  umbrella header "RxHeartRateMonitors-umbrella.h"
+
+  export *
+  module * { export * }
+}
