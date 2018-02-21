@@ -19,19 +19,19 @@ final class HeartRateMonitorVC: UIViewController{
     private var central : HeartRateMonitorCentral!
     private var heartRateMonitor : HeartRateMonitor!
     
-    func setup(withCentral central : HeartRateMonitorCentral, heartRateMonitor : HeartRateMonitor) {
-        self.central = central
-        self.heartRateMonitor = heartRateMonitor
-    }
-
-    //MARK: - Outlets
+    //MARK: - outlets
+    
     @IBOutlet weak var nameLabel : UILabel!
     @IBOutlet weak var stateLabel : UILabel!
     @IBOutlet weak var connectButton : UIButton!
     @IBOutlet weak var heartRateLabel : UILabel!
     
-    //MARK: - Binding
-    
+    //MARK: - lifecycle
+    func setup(withCentral central : HeartRateMonitorCentral, heartRateMonitor : HeartRateMonitor) {
+        self.central = central
+        self.heartRateMonitor = heartRateMonitor
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         assert(self.nameLabel != nil)
@@ -47,7 +47,8 @@ final class HeartRateMonitorVC: UIViewController{
         self.bindName()
     }
     
-   
+    //MARK: - private
+    
     private func bindState(){
         let state = self.heartRateMonitor
             .monitoredState
