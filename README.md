@@ -5,10 +5,10 @@
 [![License](https://img.shields.io/cocoapods/l/RxHeartRateMonitors.svg?style=flat)](http://cocoapods.org/pods/RxHeartRateMonitors)
 [![Platform](https://img.shields.io/cocoapods/p/RxHeartRateMonitors.svg?style=flat)](http://cocoapods.org/pods/RxHeartRateMonitors)
 
-RxHeartRateMonitors is a lightweight layer on top of [RxBluetoothKit](https://github.com/Polidea/RxBluetoothKit) and [Core Bluetooth](https://developer.apple.com/documentation/corebluetooth) to interact with BTLE Heart Rate Monitors.
+RxHeartRateMonitors is a lightweight layer on top of [RxSwift](https://github.com/ReactiveX/RxSwift), [RxBluetoothKit](https://github.com/Polidea/RxBluetoothKit) and [Core Bluetooth](https://developer.apple.com/documentation/corebluetooth) to interact with BTLE Heart Rate Monitors.
 
 
-It leverages the power of RxBluetoothKit and Corebluetooth to allow you to communicate with monitors in a seamless way.
+It allows you to communicate with Heart Rate Monitors in a seamless way.
 
 * Connect to BTLE heart rate monitors avoiding the complexities of CoreBluetooth.
 
@@ -18,13 +18,21 @@ It leverages the power of RxBluetoothKit and Corebluetooth to allow you to commu
 
 * Extensible. If you want to connect to other types of devices, like speedometers, you can create your own central.
 
+## Documentation & Support
+
+See some demonstration code bellow. Also, make sure you checkout the example app. It contains the usual code to interact with monitors: list, connect, disconnect, auto-connect.
+
+Read this [medium post](https://medium.com/@leandromperez/https-medium-com-leandromperez-reactive-heart-rate-monitors-9e68a31a88b) I wrote about RxHeartRateMonitors
+
+Found a bug? [open](https://github.com/leandromperez/RxHeartRateMonitors/issues/new
+) an issue on GitHub.
+
+
 
 
 ## Example
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
-
-
 
 
 **Important:**
@@ -101,9 +109,8 @@ self.heartRateMonitor
     .disposed(by: disposeBag)
 ```
 
-### Display heart rate
+### Display Heart Rate
 ```swift
-
 self.heartRateMonitor
     .heartRate
     .map{$0.description}
@@ -112,9 +119,8 @@ self.heartRateMonitor
     .disposed(by: disposeBag)
 ```
 
-### Display a monitor's state
+### Display a Monitor's State
 ```swift
-
 self.heartRateMonitor
     .monitoredState
     .asDriver(onErrorJustReturn: .disconnected)
@@ -127,7 +133,6 @@ self.heartRateMonitor
 
 ### Auto-Connect to a previously connected monitor
 ```swift
-
 let monitor : Observable<HeartRateMonitor> = central.whenOnlineConnectToFirstAvailablePeripheral()
 ```
 
