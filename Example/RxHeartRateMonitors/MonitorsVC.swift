@@ -51,7 +51,7 @@ class MonitorsVC: UIViewController {
         let cellProvider : CellProvider<HeartRateMonitorCell> = CellProvider()
         cellProvider.registerCell(for: self.table, automaticRowHeight: true)
         
-        self.monitors
+        self.central.monitors
             .bind(to: self.table.rx.items) { (table, row, heartRateMonitor) in
                 let cell = cellProvider.cell(for: table, at: row)
                 cell.setup(with: heartRateMonitor)
@@ -65,16 +65,7 @@ class MonitorsVC: UIViewController {
             .disposed(by: self.disposeBag)
     }
     
-    private var monitors : Observable<[HeartRateMonitor]>{
-        
-        return self.central.state
-            .filter{$0 == .poweredOn}
-            .flatMap(weak: self){me,_ in me.central.scanPeripherals().materialize()}
-            .elements()
-            .scan([], accumulator: appendMonitor)
-            .share()
-            .debug("The monitors")
-    }
+  
     
     private func openDetails(of monitor:HeartRateMonitor){
     
@@ -85,11 +76,3 @@ class MonitorsVC: UIViewController {
     }
 }
 
-
-private func appendMonitor(to accumulated:[HeartRateMonitor], newMonitor:HeartRateMonitor) -> [HeartRateMonitor]{
-    var result = accumulated
-    if !accumulated.contains(where: { $0.uuid == newMonitor.uuid}){
-        result.append(newMonitor)
-    }
-    return result
-}
