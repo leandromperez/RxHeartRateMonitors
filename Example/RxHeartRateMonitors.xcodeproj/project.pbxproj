@@ -102,6 +102,7 @@
 				9CB6934920213EE900D6461E /* Application */,
 				9CB6934E20213F3800D6461E /* Screens */,
 				9CB6934820213EDD00D6461E /* Extensions */,
+				9CAD6E8E203E1D53007F81D0 /* Utilities */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
 				607FACD31AFB9204008FA782 /* Supporting Files */,
@@ -128,6 +129,14 @@
 			name = "Podspec Metadata";
 			sourceTree = "<group>";
 		};
+		9CAD6E8E203E1D53007F81D0 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				9C9D39D820117110003EDD30 /* R.generated.swift */,
+			);
+			name = Utilities;
+			sourceTree = "<group>";
+		};
 		9CB6934820213EDD00D6461E /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -139,7 +148,6 @@
 		9CB6934920213EE900D6461E /* Application */ = {
 			isa = PBXGroup;
 			children = (
-				9C9D39D820117110003EDD30 /* R.generated.swift */,
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 			);
 			name = Application;
@@ -241,6 +249,7 @@
 				TargetAttributes = {
 					607FACCF1AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = B3CLFTM242;
 						LastSwiftMigration = 0900;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -509,11 +518,12 @@
 			baseConfigurationReference = 4401CB6BE48BC6ABAAE9205D /* Pods-RxHeartRateMonitors_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = B3CLFTM242;
 				INFOPLIST_FILE = RxHeartRateMonitors/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lmp.rxhrmonitors;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
@@ -525,11 +535,12 @@
 			baseConfigurationReference = 2A0633626BEBDE1C493040ED /* Pods-RxHeartRateMonitors_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = B3CLFTM242;
 				INFOPLIST_FILE = RxHeartRateMonitors/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lmp.rxhrmonitors;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;

@@ -22,6 +22,7 @@ class AutoConnectVC: UIViewController {
     @IBOutlet weak var bluetoothStateLabel : UILabel!
     @IBOutlet weak var heartRateLabel : UILabel!
 
+    //MARK: - lifecycle
     
     func setup(central: HeartRateMonitorCentral){
         self.central = central
@@ -33,6 +34,8 @@ class AutoConnectVC: UIViewController {
         self.bindBluetoothState()
         self.bindAutoConnectedMonitor()
     }
+    
+    //MARK: - private
     
     private func bindBluetoothState(){
         self.central.state

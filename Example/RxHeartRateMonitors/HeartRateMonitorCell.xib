@@ -34,7 +34,7 @@
                         <color key="textColor" red="0.22" green="0.26000000000000001" blue="0.28999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connected" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sdU-L8-4sP" userLabel="Status">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connected" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="sdU-L8-4sP" userLabel="Status">
                         <rect key="frame" x="195" y="12" width="109" height="83"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="109" id="YDg-kd-ggD"/>
@@ -45,6 +45,7 @@
                     </label>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="sdU-L8-4sP" firstAttribute="centerY" secondItem="EuC-vG-xU1" secondAttribute="centerY" id="MxY-uC-7Xs"/>
                     <constraint firstItem="sdU-L8-4sP" firstAttribute="leading" secondItem="EuC-vG-xU1" secondAttribute="trailing" constant="8" symbolic="YES" id="StY-7F-fiz"/>
                     <constraint firstItem="EuC-vG-xU1" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="1" id="Y2W-3r-Tax"/>
                     <constraint firstItem="EuC-vG-xU1" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="avi-Nv-UXD"/>

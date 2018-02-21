@@ -19,19 +19,19 @@ final class HeartRateMonitorVC: UIViewController{
     private var central : HeartRateMonitorCentral!
     private var heartRateMonitor : HeartRateMonitor!
     
-    func setup(withCentral central : HeartRateMonitorCentral, heartRateMonitor : HeartRateMonitor) {
-        self.central = central
-        self.heartRateMonitor = heartRateMonitor
-    }
-
-    //MARK: - Outlets
+    //MARK: - outlets
+    
     @IBOutlet weak var nameLabel : UILabel!
     @IBOutlet weak var stateLabel : UILabel!
     @IBOutlet weak var connectButton : UIButton!
     @IBOutlet weak var heartRateLabel : UILabel!
     
-    //MARK: - Binding
-    
+    //MARK: - lifecycle
+    func setup(withCentral central : HeartRateMonitorCentral, heartRateMonitor : HeartRateMonitor) {
+        self.central = central
+        self.heartRateMonitor = heartRateMonitor
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         assert(self.nameLabel != nil)
@@ -47,14 +47,7 @@ final class HeartRateMonitorVC: UIViewController{
         self.bindName()
     }
     
-    private func toogleConnection(dependingOn state:BluetoothPeripheralState) -> Observable<BluetoothPeripheral>{
-        if state != .connected{
-            return self.heartRateMonitor.connect()
-        }
-        else{
-            return self.heartRateMonitor.disconnect()
-        }
-    }
+    //MARK: - private
     
     private func bindState(){
         let state = self.heartRateMonitor
@@ -119,11 +112,17 @@ final class HeartRateMonitorVC: UIViewController{
     }
     
     private func bindName(){
+        self.nameLabel.text = self.heartRateMonitor.name ?? "Name not available"
+    }
+    
+    private func toogleConnection(dependingOn state:BluetoothPeripheralState) -> Observable<BluetoothPeripheral>{
         
-        Driver.from(optional: self.heartRateMonitor.name)
-            .startWith("Unknown device")
-            .drive(self.nameLabel.rx.text)
-            .disposed(by: self.disposeBag)
+        if state != .connected{
+            return self.heartRateMonitor.connect()
+        }
+        else{
+            return self.heartRateMonitor.disconnect()
+        }
     }
     
     private func bindConnectButton(){
@@ -137,8 +136,7 @@ final class HeartRateMonitorVC: UIViewController{
                 self.toogleConnection(dependingOn: state)
                     .materialize()
             }
-            .asObservable()
-            .publish().connect()
+            .subscribe()
             .disposed(by: disposeBag)
     }
 }

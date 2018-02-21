@@ -28,6 +28,14 @@ extension HeartRateMonitorCentral : SpecifiedBluetoothCentral{
     public typealias PeripheralType = HeartRateMonitor
     
     //MARK: - public
+    public var monitors : Observable<[HeartRateMonitor]> {
+        return self.state
+            .filter{$0 == .poweredOn}
+            .flatMap(weak: self){me,_ in me.scanPeripherals().materialize()}
+            .elements()
+            .scan([], accumulator: appendMonitor)
+    }
+    
     public var state: Observable<BluetoothState>{
         return self.central.state
     }
@@ -81,3 +89,13 @@ extension HeartRateMonitorCentral : SpecifiedBluetoothCentral{
   
 }
 
+
+
+
+private func appendMonitor(to accumulated:[HeartRateMonitor], newMonitor:HeartRateMonitor) -> [HeartRateMonitor]{
+    var result = accumulated
+    if !accumulated.contains(where: { $0.uuid == newMonitor.uuid}){
+        result.append(newMonitor)
+    }
+    return result
+}

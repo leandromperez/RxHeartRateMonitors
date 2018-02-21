@@ -20,7 +20,7 @@ Pod::Spec.new do |s|
   s.description      = <<-DESC
 It leverages the power of RxBluetoothKit and Corebluetooth to allow you to communicate with monitors in a seamless way.
 * Connect to BTLE heart rate monitors avoiding the complexities of CoreBluetooth.
-* No need to parse raw data, it does it for you.
+* No need to parse raw data.
 * No need to care about services and characteristics.
 * Extensible. If you want to connect to other types of devices, like speedometers, you can create your own central.
 
