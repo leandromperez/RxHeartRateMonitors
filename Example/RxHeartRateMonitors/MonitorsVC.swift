@@ -52,6 +52,7 @@ class MonitorsVC: UIViewController {
         cellProvider.registerCell(for: self.table, automaticRowHeight: true)
         
         self.central.monitors
+            .debug("monitors")
             .bind(to: self.table.rx.items) { (table, row, heartRateMonitor) in
                 let cell = cellProvider.cell(for: table, at: row)
                 cell.setup(with: heartRateMonitor)

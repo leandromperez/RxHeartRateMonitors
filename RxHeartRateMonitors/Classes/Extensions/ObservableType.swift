@@ -7,6 +7,7 @@
 
 import Foundation
 import RxSwift
+import RxCocoa
 
 extension ObservableType {
     public func catchErrorAndRetry(handler: @escaping (Error) throws -> Void) -> RxSwift.Observable<Self.E> {
@@ -37,6 +38,12 @@ extension Optional: OptionalProtocol {
 
 public extension ObservableType  where E : OptionalProtocol {
     func  noNils() -> Observable<Self.E.WrappedType> {
+        return self.filter {!$0.isNil()}.map {$0.unwrap()}
+    }
+}
+
+public extension SharedSequenceConvertibleType where E : OptionalProtocol {
+    func  noNils() -> SharedSequence<Self.SharingStrategy, Self.E.WrappedType> {
         return self.filter {!$0.isNil()}.map {$0.unwrap()}
     }
 }

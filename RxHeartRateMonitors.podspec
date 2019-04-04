@@ -32,7 +32,6 @@ It leverages the power of RxBluetoothKit and Corebluetooth to allow you to commu
 
     s.dependency 'RxSwift'
     s.dependency 'RxBluetoothKit'
-    s.dependency 'SwiftyUserDefaults'
     s.dependency 'RxSwiftExt'
     s.dependency 'RxCocoa'
 end

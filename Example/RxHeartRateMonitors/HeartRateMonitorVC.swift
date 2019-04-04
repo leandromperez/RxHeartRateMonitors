@@ -115,14 +115,12 @@ final class HeartRateMonitorVC: UIViewController{
         self.nameLabel.text = self.heartRateMonitor.name ?? "Name not available"
     }
     
-    private func toogleConnection(dependingOn state:BluetoothPeripheralState) -> Observable<BluetoothPeripheral>{
-        
+    private func toogleConnection(dependingOn state:BluetoothPeripheralState) {
         if state != .connected{
-            return self.heartRateMonitor.connect()
+            self.heartRateMonitor.connect().subscribe().disposed(by: disposeBag)
         }
         else {
             self.heartRateMonitor.disconnect()
-            return .empty()
         }
     }
     
@@ -133,10 +131,9 @@ final class HeartRateMonitorVC: UIViewController{
             .asObservable()
             .debounce(0.5, scheduler:MainScheduler.instance)
             .withLatestFrom(state)
-            .flatMapLatest{[unowned self] state in
+            .do(onNext: {[unowned self] state in
                 self.toogleConnection(dependingOn: state)
-                    .materialize()
-            }
+            })
             .subscribe()
             .disposed(by: disposeBag)
     }

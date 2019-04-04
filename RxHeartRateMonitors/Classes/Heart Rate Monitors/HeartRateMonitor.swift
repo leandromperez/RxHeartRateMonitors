@@ -13,18 +13,18 @@ import RxSwiftExt
 import CoreBluetooth
 import RxCocoa
 
-public struct HeartRateMonitor {
+public class HeartRateMonitor {
     
     private weak var central : HeartRateMonitorCentral!
     private var peripheral : Peripheral
-    
+
     init(peripheral:Peripheral, central: HeartRateMonitorCentral) {
         self.peripheral = peripheral
         self.central = central
     }
     
-    public var heartRate: Observable<UInt> {
-        return self.peripheral.heartRate
+    public var heartRate: Driver<UInt> {
+        return self.peripheral.heartRate.asDriver(onErrorJustReturn: 0)
     }
 }
 
@@ -44,23 +44,37 @@ extension HeartRateMonitor: BluetoothPeripheral{
     public var monitoredState: Observable<BluetoothPeripheralState>{
         return self.peripheral.monitoredState
     }
-    
-    public func connect() -> Observable<BluetoothPeripheral> {
+
+    public func connect() -> Observable<Peripheral> {
         self.central.save(peripheral:self)
-        if self.peripheral.state == .connected {
-            return .just(self.peripheral)
-        } else {
-            return self.peripheral.connect()
-        }
-    }
     
+        return self.peripheral.establishConnection()
+    }
+
     public func disconnect() {
-        return self.peripheral.disconnect()
+        self.central.disconnect(peripheral: self.peripheral)
     }
 }
 
 extension HeartRateMonitor{
     public static var requiredServicesIds : [CBUUID] {
         return [BluetoothServices.heartRateMonitor.uuid]
+    }
+}
+
+extension HeartRateMonitor : CustomStringConvertible {
+    public var description: String {
+        return "HR: " + (self.name ?? "unknown")
+    }
+}
+extension HeartRateMonitor : CustomDebugStringConvertible {
+    public var debugDescription: String {
+        return self.description
+    }
+}
+
+extension HeartRateMonitor : Equatable {
+    public static func == (lhs: HeartRateMonitor, rhs: HeartRateMonitor) -> Bool {
+        return lhs.uuid == rhs.uuid
     }
 }

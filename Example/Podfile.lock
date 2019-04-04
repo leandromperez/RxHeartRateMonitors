@@ -8,7 +8,6 @@ PODS:
     - RxCocoa
     - RxSwift
     - RxSwiftExt
-    - SwiftyUserDefaults
   - RxSwift (4.5.0)
   - RxSwiftExt (3.4.0):
     - RxSwiftExt/Core (= 3.4.0)
@@ -18,7 +17,6 @@ PODS:
   - RxSwiftExt/RxCocoa (3.4.0):
     - RxCocoa (~> 4.0)
     - RxSwiftExt/Core
-  - SwiftyUserDefaults (3.0.1)
 
 DEPENDENCIES:
   - RxBluetoothKit
@@ -32,7 +30,6 @@ SPEC REPOS:
     - RxCocoa
     - RxSwift
     - RxSwiftExt
-    - SwiftyUserDefaults
 
 EXTERNAL SOURCES:
   RxHeartRateMonitors:
@@ -41,10 +38,9 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   RxBluetoothKit: d18f7beb5fd4d2b24659d57548e38d5d2fac885b
   RxCocoa: cbf70265dc65a981d4ac982e513c10cf23df24a0
-  RxHeartRateMonitors: 7d06e6c86232c07a8a9be2b786df77a9caff143b
+  RxHeartRateMonitors: 7bfae527f1f0838b62d45a04b145026d9c5f0b45
   RxSwift: f172070dfd1a93d70a9ab97a5a01166206e1c575
   RxSwiftExt: 01f8ecbeeb355698e9c75365ebe908b00dacf45d
-  SwiftyUserDefaults: 3d273b1739b68ada3145dc754a70ec775bc5c8be
 
 PODFILE CHECKSUM: d4dd3d38da9c3019ee58f795de8316a8c907a160
 

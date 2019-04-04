@@ -9,6 +9,7 @@
 import Foundation
 import RxSwift
 import CoreBluetooth
+import RxCocoa
 
 public protocol BluetoothPeripheral{
     static var requiredServicesIds : [CBUUID] {get}
@@ -18,9 +19,6 @@ public protocol BluetoothPeripheral{
     
     var state : BluetoothPeripheralState {get}
     var monitoredState : Observable<BluetoothPeripheralState> {get}
-    
-    func connect() -> Observable<BluetoothPeripheral>
-    func disconnect()
 }
 
 extension BluetoothPeripheral{

@@ -10,7 +10,6 @@ import Foundation
 import RxBluetoothKit
 import RxSwift
 import CoreBluetooth
-import SwiftyUserDefaults
 
 public class HeartRateMonitorCentral : NSObject{
     
@@ -20,11 +19,14 @@ public class HeartRateMonitorCentral : NSObject{
     private var requiredServices : [CBUUID] {
         return HeartRateMonitorCentral.PeripheralType.requiredServicesIds
     }
+
+    func disconnect(peripheral: Peripheral) {
+        self.central.disconnect(peripheral: peripheral)
+    }
 }
 
 extension HeartRateMonitorCentral : SpecifiedBluetoothCentral{
-    
-    
+
     public typealias PeripheralType = HeartRateMonitor
     
     //MARK: - public
@@ -86,11 +88,12 @@ extension HeartRateMonitorCentral : SpecifiedBluetoothCentral{
     public func save(peripheral: HeartRateMonitor) {
         self.central.save(peripheralUUID:peripheral.uuid)
     }
-  
+
+    public func has(saved monitor: HeartRateMonitor) -> Bool {
+        return self.central.has(saved: monitor.uuid)
+    }
+
 }
-
-
-
 
 private func appendMonitor(to accumulated:[HeartRateMonitor], newMonitor:HeartRateMonitor) -> [HeartRateMonitor]{
     var result = accumulated

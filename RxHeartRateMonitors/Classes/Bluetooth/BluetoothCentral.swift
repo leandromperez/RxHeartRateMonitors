@@ -9,7 +9,6 @@ import Foundation
 import RxBluetoothKit
 import RxSwift
 import CoreBluetooth
-import SwiftyUserDefaults
 import RxSwiftExt
 
 final class BluetoothCentral : NSObject{
@@ -34,6 +33,7 @@ final class BluetoothCentral : NSObject{
         })
     }()
 
+
     public func initialize() {
         _ = self.manager
     }
@@ -43,7 +43,11 @@ final class BluetoothCentral : NSObject{
     }
     
     //MARK: - public
-    
+
+    func disconnect(peripheral : Peripheral) {
+        self.manager.centralManager.cancelPeripheralConnection(peripheral.peripheral)
+    }
+
     var state: Observable<BluetoothState> {
         
         return self.manager.observeState()
@@ -90,11 +94,8 @@ final class BluetoothCentral : NSObject{
         let saved = self.savedPeripheralUUIDs
         let newOnes : Observable<Peripheral> = self.manager.scanForPeripherals(withServices: services)
             .filter{saved.contains($0.peripheral.uuid)}
-            .flatMap {$0.peripheral.connect().materialize()}
-            .elements()
+            .flatMap {$0.peripheral.establishConnection().materialize().elements()}
             .filter{$0.state.isConnected}
-            .map{$0 as? Peripheral}
-            .noNils()
         
         return alreadyConnected.concat(newOnes)
     }
@@ -104,15 +105,20 @@ final class BluetoothCentral : NSObject{
             self.savedPeripheralUUIDs.append(peripheralUUID)
         }
     }
-    
+
+    func has(saved uuid: String) -> Bool {
+        return self.savedPeripheralUUIDs.contains(uuid)
+    }
+
     //Mark: - private
-    
+
+    let savedBluetoothDevicesIds = "savedBluetoothDevicesIds"
     private var savedPeripheralUUIDs : [String] {
         get{
-            return Defaults[.savedBluetoothDevicesIds]
+            return UserDefaults.standard.stringArray(forKey: savedBluetoothDevicesIds) ?? []
         }
         set{
-            Defaults[.savedBluetoothDevicesIds] = newValue
+            UserDefaults.standard.setValue(newValue, forKey: savedBluetoothDevicesIds)
         }
     }
 
@@ -132,8 +138,3 @@ extension BluetoothCentral : CBCentralManagerDelegate{
         //Do nothing on purpose, just for the hack explained above
     }
 }
-
-extension DefaultsKeys {
-    static let savedBluetoothDevicesIds =  DefaultsKey<[String]>("savedBluetoothDevicesIds")
-}
-
