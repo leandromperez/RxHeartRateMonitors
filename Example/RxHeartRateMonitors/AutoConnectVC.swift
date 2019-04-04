@@ -48,15 +48,25 @@ class AutoConnectVC: UIViewController {
     private func bindAutoConnectedMonitor(){
         //Name
         let monitor : Observable<HeartRateMonitor> = self.central.whenOnlineConnectToFirstAvailablePeripheral()
-            .debug("Auto connected monitor")
+//            .debug("A")
+//            .flatMap{ $0.connect().materialize().debug("mm").elements().map{$0 as! HeartRateMonitor} }
+//            .debug("B")
+//            .debug("B")
+//            .map{$0 as? HeartRateMonitor}
+//            .debug("C")
+//            .noNils()
+//            .debug("D")
+//            .share()
+//            .debug("Auto connected monitor")
 
+        
         monitor.map{$0.name}
             .asDriver(onErrorJustReturn: "No device connected")
             .drive(self.nameLabel.rx.text)
             .disposed(by: self.disposeBag)
 
         //Heart Rate depending on BT state
-        let heartRate : Driver<UInt> = monitor.flatMap{$0.heartRate}
+        let heartRate : Driver<UInt> = monitor.flatMap{$0.heartRate.debug("❤️")}
             .catchErrorAndRetry {_ in } //When disconnected it generates an error that terminates the stream
             .asDriver(onErrorJustReturn: 0)
             .debug("Heart Rate Driver")
@@ -64,6 +74,8 @@ class AutoConnectVC: UIViewController {
         let bluetoothState : Driver<BluetoothState> = self.central.state.asDriver(onErrorJustReturn: .poweredOff)
 
         let heartRateConsideringState = Driver.combineLatest(bluetoothState, heartRate){  state, hr -> UInt in
+            print(state)
+            print(hr)
             if state.isOn {
                 return hr
             }

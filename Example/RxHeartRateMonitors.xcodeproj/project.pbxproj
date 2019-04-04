@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4C9674C9148CBAEADF85094C /* Pods_RxHeartRateMonitors_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15E4688B7B22D4A5671ABA14 /* Pods_RxHeartRateMonitors_Example.framework */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* MonitorsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* MonitorsVC.swift */; };
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
@@ -17,20 +16,18 @@
 		9C9D39D320116DFF003EDD30 /* AutoConnectVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C9D39D220116DFF003EDD30 /* AutoConnectVC.storyboard */; };
 		9C9D39D520116F0C003EDD30 /* MonitorsVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C9D39D420116F0C003EDD30 /* MonitorsVC.storyboard */; };
 		9C9D39D720116F59003EDD30 /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C9D39D620116F59003EDD30 /* MainVC.swift */; };
-		9C9D39D920117110003EDD30 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C9D39D820117110003EDD30 /* R.generated.swift */; };
 		9CB6934720213ED200D6461E /* UIStoryboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB6934620213ED200D6461E /* UIStoryboard.swift */; };
+		9CC1FAD122560CC000A61893 /* Storyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC1FAD022560CC000A61893 /* Storyboard.swift */; };
 		9CC580882002D0850030F0BF /* HeartRateMonitorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9CC580862002D0850030F0BF /* HeartRateMonitorCell.xib */; };
 		9CC580892002D0850030F0BF /* HeartRateMonitorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC580872002D0850030F0BF /* HeartRateMonitorCell.swift */; };
 		9CC580922002DBB50030F0BF /* HeartRateMonitorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC580912002DBB50030F0BF /* HeartRateMonitorVC.swift */; };
 		9CC580942002DFAD0030F0BF /* HeartRateMonitorVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9CC580932002DFAD0030F0BF /* HeartRateMonitorVC.storyboard */; };
+		C86A9C5D68E69A67463274AF /* Pods_RxHeartRateMonitors_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 616322816EB6D842BEF2667F /* Pods_RxHeartRateMonitors_Example.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0430E1B2312EB04D1B09B7FE /* Pods_RxHeartRateMonitors_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RxHeartRateMonitors_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		15E4688B7B22D4A5671ABA14 /* Pods_RxHeartRateMonitors_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RxHeartRateMonitors_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		260718B507F40EE66DF27454 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
-		2A0633626BEBDE1C493040ED /* Pods-RxHeartRateMonitors_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxHeartRateMonitors_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-RxHeartRateMonitors_Example/Pods-RxHeartRateMonitors_Example.release.xcconfig"; sourceTree = "<group>"; };
-		4401CB6BE48BC6ABAAE9205D /* Pods-RxHeartRateMonitors_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxHeartRateMonitors_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RxHeartRateMonitors_Example/Pods-RxHeartRateMonitors_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		46BC6B951BEA9C02C89FD52A /* Pods-RxHeartRateMonitors_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxHeartRateMonitors_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RxHeartRateMonitors_Example/Pods-RxHeartRateMonitors_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		4D9B873D74D38686E8B6FB5C /* RxHeartRateMonitors.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = RxHeartRateMonitors.podspec; path = ../RxHeartRateMonitors.podspec; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* RxHeartRateMonitors_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RxHeartRateMonitors_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -39,19 +36,19 @@
 		607FACDA1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		607FACDC1AFB9204008FA782 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		607FACDF1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		743803E7456C06F205B74D97 /* Pods-RxHeartRateMonitors_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxHeartRateMonitors_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RxHeartRateMonitors_Tests/Pods-RxHeartRateMonitors_Tests.release.xcconfig"; sourceTree = "<group>"; };
+		616322816EB6D842BEF2667F /* Pods_RxHeartRateMonitors_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RxHeartRateMonitors_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C44B0D2201161AC00147841 /* AutoConnectVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoConnectVC.swift; sourceTree = "<group>"; };
 		9C9D39D220116DFF003EDD30 /* AutoConnectVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AutoConnectVC.storyboard; sourceTree = "<group>"; };
 		9C9D39D420116F0C003EDD30 /* MonitorsVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MonitorsVC.storyboard; sourceTree = "<group>"; };
 		9C9D39D620116F59003EDD30 /* MainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVC.swift; sourceTree = "<group>"; };
-		9C9D39D820117110003EDD30 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = R.generated.swift; path = RxHeartRateMonitors/R.generated.swift; sourceTree = SOURCE_ROOT; };
 		9CB6934620213ED200D6461E /* UIStoryboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStoryboard.swift; sourceTree = "<group>"; };
+		9CC1FAD022560CC000A61893 /* Storyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboard.swift; sourceTree = "<group>"; };
 		9CC580862002D0850030F0BF /* HeartRateMonitorCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeartRateMonitorCell.xib; sourceTree = "<group>"; };
 		9CC580872002D0850030F0BF /* HeartRateMonitorCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeartRateMonitorCell.swift; sourceTree = "<group>"; };
 		9CC580902002D8960030F0BF /* RxHeartRateMonitors_Example.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RxHeartRateMonitors_Example.entitlements; sourceTree = "<group>"; };
 		9CC580912002DBB50030F0BF /* HeartRateMonitorVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeartRateMonitorVC.swift; sourceTree = "<group>"; };
 		9CC580932002DFAD0030F0BF /* HeartRateMonitorVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = HeartRateMonitorVC.storyboard; sourceTree = "<group>"; };
-		BAC37398BEE79DD6B1B61D52 /* Pods-RxHeartRateMonitors_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxHeartRateMonitors_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RxHeartRateMonitors_Tests/Pods-RxHeartRateMonitors_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		A3447B3C9807EC01132253B7 /* Pods-RxHeartRateMonitors_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxHeartRateMonitors_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-RxHeartRateMonitors_Example/Pods-RxHeartRateMonitors_Example.release.xcconfig"; sourceTree = "<group>"; };
 		C2346BB3A9ECA7AC6E6B244E /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -60,18 +57,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4C9674C9148CBAEADF85094C /* Pods_RxHeartRateMonitors_Example.framework in Frameworks */,
+				C86A9C5D68E69A67463274AF /* Pods_RxHeartRateMonitors_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		4D06745B6721FAEC158F0B0D /* Frameworks */ = {
+		5D4B610AEC7DA45CAF35856C /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				15E4688B7B22D4A5671ABA14 /* Pods_RxHeartRateMonitors_Example.framework */,
-				0430E1B2312EB04D1B09B7FE /* Pods_RxHeartRateMonitors_Tests.framework */,
+				46BC6B951BEA9C02C89FD52A /* Pods-RxHeartRateMonitors_Example.debug.xcconfig */,
+				A3447B3C9807EC01132253B7 /* Pods-RxHeartRateMonitors_Example.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		5FCEDA3798D9F3D62716DC70 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				616322816EB6D842BEF2667F /* Pods_RxHeartRateMonitors_Example.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -83,8 +88,8 @@
 				607FACF51AFB993E008FA782 /* Podspec Metadata */,
 				607FACD21AFB9204008FA782 /* Example for RxHeartRateMonitors */,
 				607FACD11AFB9204008FA782 /* Products */,
-				ECB671AD2B856D87B7A06797 /* Pods */,
-				4D06745B6721FAEC158F0B0D /* Frameworks */,
+				5D4B610AEC7DA45CAF35856C /* Pods */,
+				5FCEDA3798D9F3D62716DC70 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -102,7 +107,6 @@
 				9CB6934920213EE900D6461E /* Application */,
 				9CB6934E20213F3800D6461E /* Screens */,
 				9CB6934820213EDD00D6461E /* Extensions */,
-				9CAD6E8E203E1D53007F81D0 /* Utilities */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
 				607FACD31AFB9204008FA782 /* Supporting Files */,
@@ -127,14 +131,6 @@
 				C2346BB3A9ECA7AC6E6B244E /* LICENSE */,
 			);
 			name = "Podspec Metadata";
-			sourceTree = "<group>";
-		};
-		9CAD6E8E203E1D53007F81D0 /* Utilities */ = {
-			isa = PBXGroup;
-			children = (
-				9C9D39D820117110003EDD30 /* R.generated.swift */,
-			);
-			name = Utilities;
 			sourceTree = "<group>";
 		};
 		9CB6934820213EDD00D6461E /* Extensions */ = {
@@ -187,6 +183,7 @@
 			children = (
 				607FACD91AFB9204008FA782 /* Main.storyboard */,
 				9C9D39D620116F59003EDD30 /* MainVC.swift */,
+				9CC1FAD022560CC000A61893 /* Storyboard.swift */,
 			);
 			name = Main;
 			sourceTree = "<group>";
@@ -202,17 +199,6 @@
 			name = Screens;
 			sourceTree = "<group>";
 		};
-		ECB671AD2B856D87B7A06797 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				4401CB6BE48BC6ABAAE9205D /* Pods-RxHeartRateMonitors_Example.debug.xcconfig */,
-				2A0633626BEBDE1C493040ED /* Pods-RxHeartRateMonitors_Example.release.xcconfig */,
-				BAC37398BEE79DD6B1B61D52 /* Pods-RxHeartRateMonitors_Tests.debug.xcconfig */,
-				743803E7456C06F205B74D97 /* Pods-RxHeartRateMonitors_Tests.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -220,13 +206,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 607FACEF1AFB9204008FA782 /* Build configuration list for PBXNativeTarget "RxHeartRateMonitors_Example" */;
 			buildPhases = (
-				94307EC79388A79B268BAF32 /* [CP] Check Pods Manifest.lock */,
-				9C9D39CF20116D34003EDD30 /* ShellScript */,
+				5A44B0324EF7D1613625FDE9 /* [CP] Check Pods Manifest.lock */,
 				607FACCC1AFB9204008FA782 /* Sources */,
 				607FACCD1AFB9204008FA782 /* Frameworks */,
 				607FACCE1AFB9204008FA782 /* Resources */,
-				FDF249E748AD738CC5BE393A /* [CP] Embed Pods Frameworks */,
-				FFAF7532AF19704915F3E337 /* [CP] Copy Pods Resources */,
+				FE6E1C23D43E94C8C1BC20E2 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -249,7 +233,7 @@
 				TargetAttributes = {
 					607FACCF1AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
-						DevelopmentTeam = B3CLFTM242;
+						DevelopmentTeam = YXCSRKGJ63;
 						LastSwiftMigration = 0900;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -267,6 +251,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -298,16 +283,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		94307EC79388A79B268BAF32 /* [CP] Check Pods Manifest.lock */ = {
+		5A44B0324EF7D1613625FDE9 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			inputFileListPaths = (
 			);
 			inputPaths = (
 				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
 				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-RxHeartRateMonitors_Example-checkManifestLockResult.txt",
 			);
@@ -316,27 +305,15 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		9C9D39CF20116D34003EDD30 /* ShellScript */ = {
+		FE6E1C23D43E94C8C1BC20E2 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"$PODS_ROOT/R.swift/rswift\" generate \"$SRCROOT\"\n";
-		};
-		FDF249E748AD738CC5BE393A /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+			inputFileListPaths = (
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-RxHeartRateMonitors_Example/Pods-RxHeartRateMonitors_Example-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/R.swift.Library/Rswift.framework",
 				"${BUILT_PRODUCTS_DIR}/RxBluetoothKit/RxBluetoothKit.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxHeartRateMonitors/RxHeartRateMonitors.framework",
@@ -345,8 +322,9 @@
 				"${BUILT_PRODUCTS_DIR}/SwiftyUserDefaults/SwiftyUserDefaults.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Rswift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxBluetoothKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxHeartRateMonitors.framework",
@@ -359,21 +337,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RxHeartRateMonitors_Example/Pods-RxHeartRateMonitors_Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		FFAF7532AF19704915F3E337 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RxHeartRateMonitors_Example/Pods-RxHeartRateMonitors_Example-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -382,12 +345,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				607FACD81AFB9204008FA782 /* MonitorsVC.swift in Sources */,
-				9C9D39D920117110003EDD30 /* R.generated.swift in Sources */,
 				9CC580922002DBB50030F0BF /* HeartRateMonitorVC.swift in Sources */,
 				9C44B0D3201161AC00147841 /* AutoConnectVC.swift in Sources */,
 				9CB6934720213ED200D6461E /* UIStoryboard.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 				9CC580892002D0850030F0BF /* HeartRateMonitorCell.swift in Sources */,
+				9CC1FAD122560CC000A61893 /* Storyboard.swift in Sources */,
 				9C9D39D720116F59003EDD30 /* MainVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -459,11 +422,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -505,45 +469,46 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.2;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
 		607FACF01AFB9204008FA782 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4401CB6BE48BC6ABAAE9205D /* Pods-RxHeartRateMonitors_Example.debug.xcconfig */;
+			baseConfigurationReference = 46BC6B951BEA9C02C89FD52A /* Pods-RxHeartRateMonitors_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = B3CLFTM242;
+				DEVELOPMENT_TEAM = YXCSRKGJ63;
 				INFOPLIST_FILE = RxHeartRateMonitors/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = com.lmp.rxhrmonitors;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
 		607FACF11AFB9204008FA782 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2A0633626BEBDE1C493040ED /* Pods-RxHeartRateMonitors_Example.release.xcconfig */;
+			baseConfigurationReference = A3447B3C9807EC01132253B7 /* Pods-RxHeartRateMonitors_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = B3CLFTM242;
+				DEVELOPMENT_TEAM = YXCSRKGJ63;
 				INFOPLIST_FILE = RxHeartRateMonitors/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = com.lmp.rxhrmonitors;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};

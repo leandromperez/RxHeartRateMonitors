@@ -46,7 +46,7 @@ public struct CellProvider <Cell : UITableViewCell> {
         
         if automaticRowHeight{
             tableView.estimatedRowHeight = 100
-            tableView.rowHeight = UITableViewAutomaticDimension
+            tableView.rowHeight = UITableView.automaticDimension
         }
     }
 }

@@ -17,3 +17,32 @@ extension ObservableType {
             .retry()
     }
 }
+
+public protocol OptionalProtocol {
+    associatedtype WrappedType
+    func unwrap() -> WrappedType
+    func isNil() -> Bool
+}
+
+extension Optional: OptionalProtocol {
+    public typealias WrappedType = Wrapped
+    public func  unwrap() -> Wrapped {
+        return self!
+    }
+
+    public func  isNil() -> Bool {
+        return self == nil
+    }
+}
+
+public extension ObservableType  where E : OptionalProtocol {
+    func  noNils() -> Observable<Self.E.WrappedType> {
+        return self.filter {!$0.isNil()}.map {$0.unwrap()}
+    }
+}
+
+public extension PrimitiveSequence where TraitType == SingleTrait, E : OptionalProtocol {
+    func  noNils() ->  PrimitiveSequence<SingleTrait, E.WrappedType> {
+        return self.asObservable().noNils().asSingle()
+    }
+}

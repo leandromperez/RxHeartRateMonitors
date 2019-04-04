@@ -69,7 +69,7 @@ class MonitorsVC: UIViewController {
     
     private func openDetails(of monitor:HeartRateMonitor){
     
-        let details : HeartRateMonitorVC = R.storyboard.heartRateMonitorVC().initialViewController()
+        let details : HeartRateMonitorVC = Storyboards.heartRateMonitorVC.initialViewController()
         details.setup(withCentral: self.central, heartRateMonitor: monitor)
         
         self.navigationController?.pushViewController(details, animated: true)

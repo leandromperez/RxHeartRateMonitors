@@ -20,7 +20,7 @@ public protocol BluetoothPeripheral{
     var monitoredState : Observable<BluetoothPeripheralState> {get}
     
     func connect() -> Observable<BluetoothPeripheral>
-    func disconnect() -> Observable<BluetoothPeripheral>
+    func disconnect()
 }
 
 extension BluetoothPeripheral{

@@ -15,24 +15,29 @@ import RxSwiftExt
 final class BluetoothCentral : NSObject{
     
     private let disposeBag = DisposeBag()
-    
-    private let manager : BluetoothManager
-    
+
     private var internalManager : CBCentralManager?
     
-    private var restoredState : RestoredState? = nil
-    
-    //MARK: - lifecycle
-    override init() {
-        
+    private var restoredState : CentralManagerRestoredState? = nil
+
+    lazy var manager : CentralManager = {
         let restoreKey = CBCentralManagerOptionRestoreIdentifierKey
         let showAlertKey = CBCentralManagerOptionShowPowerAlertKey
-        self.manager = BluetoothManager(queue: .main, options: [showAlertKey : false as AnyObject,
-                                                                restoreKey : "rx.hr.monitors.identifiers" as AnyObject])
-        
-        super.init()
+
+        return CentralManager(
+            queue: .main,
+            options: [
+                showAlertKey : false as AnyObject,
+                restoreKey : "yourtrainer.bt.state.identifier" as AnyObject],
+            onWillRestoreCentralManagerState: { [weak self] restoredState in
+                self?.saveRestoredState(restoredState)
+        })
+    }()
+
+    public func initialize() {
+        _ = self.manager
     }
-    
+
     deinit {
         self.internalManager?.delegate = nil
     }
@@ -41,7 +46,7 @@ final class BluetoothCentral : NSObject{
     
     var state: Observable<BluetoothState> {
         
-        return self.manager.rx_state
+        return self.manager.observeState()
             .startWith(self.manager.state)
             .distinctUntilChanged()
     }
@@ -49,15 +54,13 @@ final class BluetoothCentral : NSObject{
     func connectedPeripheralsWithSavedFirst(withServices services:[CBUUID]) -> Observable<Peripheral> {
         let saved = self.savedPeripheralUUIDs
         
-        return self.manager
+        let peripherals : [Peripheral] = self.manager
             .retrieveConnectedPeripherals(withServices: services )
-            .map{ all -> [Peripheral] in
-                let sorted = all.sorted(by: {a,b in saved.contains(a.uuid) ? true : false  } )
-                return sorted
-            }
-            .flatMap{Observable.from($0)}
+            .sorted(by: {first, _ in saved.contains(first.uuid) ? true : false  })
+
+        return Observable<Peripheral>.from(peripherals, scheduler: MainScheduler.instance)
     }
-    
+
     func connectedPeripherals(withServices services:[CBUUID]) -> Observable<Peripheral> {
         return self.connectedPeripheralsWithSavedFirst(withServices: services)
     }
@@ -90,16 +93,12 @@ final class BluetoothCentral : NSObject{
             .flatMap {$0.peripheral.connect().materialize()}
             .elements()
             .filter{$0.state.isConnected}
+            .map{$0 as? Peripheral}
+            .noNils()
         
         return alreadyConnected.concat(newOnes)
     }
-    
-    func restoreState(){
-        return self.manager.listenOnRestoredState()
-            .subscribeNext(weak: self, BluetoothCentral.saveRestoredState)
-            .disposed(by: self.disposeBag)
-    }
-    
+
     func save(peripheralUUID: String) {
         if(!self.savedPeripheralUUIDs.contains(peripheralUUID)){
             self.savedPeripheralUUIDs.append(peripheralUUID)
@@ -123,7 +122,7 @@ final class BluetoothCentral : NSObject{
         }
     }
     
-    private func saveRestoredState(_ state : RestoredState){
+    private func saveRestoredState(_ state : CentralManagerRestoredState){
         self.restoredState = state
     }
 }

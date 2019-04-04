@@ -1,8 +1,8 @@
 {
   "name": "RxHeartRateMonitors",
-  "version": "0.1.0",
+  "version": "0.0.2",
   "summary": "RxHeartRateMonitors is a lightweight layer on top of RxBluetoothKit and Core Bluetooth to interact with BTLE Heart Rate Monitors.",
-  "description": "TODO: Add long description of the pod here.",
+  "description": "It leverages the power of RxBluetoothKit and Corebluetooth to allow you to communicate with monitors in a seamless way.\n* Connect to BTLE heart rate monitors avoiding the complexities of CoreBluetooth.\n* No need to parse raw data.\n* No need to care about services and characteristics.\n* Extensible. If you want to connect to other types of devices, like speedometers, you can create your own central.",
   "homepage": "https://github.com/leandromperez/RxHeartRateMonitors",
   "license": {
     "type": "MIT",
@@ -12,11 +12,12 @@
     "Leandro Perez": "leandromperez@gmail.com"
   },
   "source": {
-    "git": "https://github.com/Leandro Perez/RxHeartRateMonitors.git",
-    "tag": "0.1.0"
+    "git": "https://github.com/leandromperez/RxHeartRateMonitors.git",
+    "tag": "0.0.2"
   },
+  "social_media_url": "https://medium.com/@leandromperez",
   "platforms": {
-    "ios": "8.0"
+    "ios": "11.0"
   },
   "source_files": "RxHeartRateMonitors/Classes/**/*",
   "dependencies": {

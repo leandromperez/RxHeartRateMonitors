@@ -120,8 +120,9 @@ final class HeartRateMonitorVC: UIViewController{
         if state != .connected{
             return self.heartRateMonitor.connect()
         }
-        else{
-            return self.heartRateMonitor.disconnect()
+        else {
+            self.heartRateMonitor.disconnect()
+            return .empty()
         }
     }
     

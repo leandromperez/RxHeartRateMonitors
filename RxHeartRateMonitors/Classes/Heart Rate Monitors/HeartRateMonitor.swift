@@ -47,10 +47,14 @@ extension HeartRateMonitor: BluetoothPeripheral{
     
     public func connect() -> Observable<BluetoothPeripheral> {
         self.central.save(peripheral:self)
-        return self.peripheral.connect()
+        if self.peripheral.state == .connected {
+            return .just(self.peripheral)
+        } else {
+            return self.peripheral.connect()
+        }
     }
     
-    public func disconnect() -> Observable<BluetoothPeripheral> {
+    public func disconnect() {
         return self.peripheral.disconnect()
     }
 }
