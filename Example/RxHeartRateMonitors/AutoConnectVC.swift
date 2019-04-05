@@ -23,14 +23,12 @@ class AutoConnectVC: UIViewController {
 //        return heartRateMonitorRelay.asDriver().noNils().debug("🧐").distinctUntilChanged().debug("🚵🏽‍♀️")
 //    }
 
-    var heartRateMonitor : HeartRateMonitor! {
-        didSet {
-            self.bindHeartRateMonitor()
-        }
-    }
+
+    var heartRateMonitor : HeartRateMonitor!
+    var monitorDisposeBag = DisposeBag()
 
     @IBOutlet weak var nameLabel : UILabel!
-    @IBOutlet weak var stateLabel : UILabel!
+    @IBOutlet weak var monitorStateLabel : UILabel!
     @IBOutlet weak var bluetoothStateLabel : UILabel!
     @IBOutlet weak var heartRateLabel : UILabel!
 
@@ -44,84 +42,129 @@ class AutoConnectVC: UIViewController {
         super.viewDidLoad()
 
         bindBluetoothState()
-        scanMonitors()
+        bindAutoconnectedMonitor()
     }
     
     //MARK: - private
-    
+
+    private var bluetoothState : Driver<BluetoothState> {
+        return self.central.state.asDriver(onErrorJustReturn: .poweredOff)
+    }
+
     private func bindBluetoothState(){
-        self.central.state.materialize().elements()
+        bluetoothState
             .map{"Bluetooth is \($0.isOn ? "ON" : "OFF")"}
-            .asDriver(onErrorDriveWith: .never())
             .drive(self.bluetoothStateLabel.rx.text)
             .disposed(by: self.disposeBag)
     }
 
-    func bindHeartRateMonitor(){
-        self.nameLabel.text = heartRateMonitor.name
-        self.bindState()
-        self.connectWhenOnline()
-    }
-
-    private func connectWhenOnline() {
-
-        central.state.startWith(.poweredOff)
-            .debug("🥊")
-            .ignoreErrors()
-            .debug("🍀")
-            .filter{$0.isOn}
-            .debug("🐳")
-            .subscribe(onNext: { _ in
-                self.connect()
-            })
-            .disposed(by: hrDisposeBag)
-    }
-
-    func connect() {
-        if self.heartRateMonitor.state != .connected {
-            self.heartRateMonitor.connect().debug("📱").subscribe().disposed(by: disposeBag)
-        }
-    }
-
-    private func bindState(){
-        let state = self.heartRateMonitor
-            .monitoredState.startWith(.disconnected)
-            .debug("🖼")
-            .asDriver(onErrorJustReturn: .disconnected)
-
-        state
-            .map{$0.description}
-            .debug("😝")
-            .drive(self.stateLabel.rx.text)
-            .disposed(by: self.disposeBag)
-
-        state.asObservable()
+    private func bindAutoconnectedMonitor() {
+        let bag = monitorDisposeBag
+        let autoconnectedMonitor : Observable<HeartRateMonitor> = central.monitors
+            .debug("[🐳]")
+            .map{ $0.first }
+            .debug("1 🐳")
+            .noNils()
+            .debug("last 🐳")
             .distinctUntilChanged()
-            .subscribeNext(weak: self, AutoConnectVC.reconnectHeartRate)
-            .disposed(by: self.disposeBag)
+            .do(onNext: {
+                if $0.state == .disconnected {
+                    $0.connect().debug("📡").subscribe().disposed(by: bag)
+                }
+            })
+            .share()
+
+        autoconnectedMonitor
+            .flatMap{$0.monitoredState.ignoreErrors().debug("inner state")}
+            .debug("state")
+            .asDriver(onErrorJustReturn: .disconnected)
+            .map{ $0.description }
+            .drive(self.monitorStateLabel.rx.text)
+            .disposed(by: disposeBag)
+
+        autoconnectedMonitor
+            .debug("Monitor")
+            .filter{ $0.state == .connected}
+            .debug("Connected Monitor")
+            .distinctUntilChanged()
+            .flatMap{$0.monitoredHeartRate.debug("HR inner w/ errors").ignoreErrors().debug("HR inner")}
+            .debug("HR outer")
+//            .subscribe()
+            .asDriver(onErrorJustReturn: 0)
+            .debug("HR driver")
+            .map{ $0.description }
+            .drive(self.monitorStateLabel.rx.text)
+            .disposed(by: disposeBag)
     }
 
-    private func reconnectHeartRate(_ state : BluetoothPeripheralState){
-        if state == .connected {
-            self.bindHeartRate()
-        }
-    }
-
-    var hrDisposeBag = DisposeBag()
-
-    private func bindHeartRate(){
-
-        self.hrDisposeBag = DisposeBag()
-
-        heartRateMonitor.heartRate.debug("💛").asDriver(onErrorJustReturn: 0).debug("💙")
-            .debug("❤️")
-            .map{$0.description}
-            .debug("💚")
-            .drive(self.heartRateLabel.rx.text)
-            .disposed(by: hrDisposeBag)
-    }
-
-
+//    //MARK: - autoconnected monitor
+//
+//    func bindHeartRateMonitor(){
+//        monitorDisposeBag = DisposeBag()
+//        self.nameLabel.text = heartRateMonitor.name
+//        self.bindMonitorState()
+//        self.connectToMonitorWhenBluetoothIsOn()
+//    }
+//
+//    private func connectToMonitorWhenBluetoothIsOn() {
+//        self.bluetoothState.asObservable()
+//            .debug("🥊")
+//            .filter{$0.isOn}
+//            .debug("🐳")
+//            .subscribe(onNext:{[unowned self] _ in
+//                self.connect()
+//            })
+//            .disposed(by: monitorDisposeBag)
+//    }
+//
+//    func connect() {
+//        if self.heartRateMonitor.state != .connected {
+//            self.heartRateMonitor.connect().debug("🕹").subscribe().disposed(by: monitorDisposeBag)
+//        }
+//    }
+//
+//    private func bindMonitorState(){
+//        let state = self.heartRateMonitor
+//            .monitoredState.startWith(.disconnected)
+//            .debug("🖼")
+//            .asDriver(onErrorJustReturn: .disconnected)
+//
+//        state
+//            .map{$0.description}
+//            .debug("😝")
+//            .drive(self.monitorStateLabel.rx.text)
+//            .disposed(by: self.monitorDisposeBag)
+//
+//        state.asObservable()
+//            .distinctUntilChanged()
+//            .subscribeNext(weak: self, AutoConnectVC.reconnectHeartRate)
+//            .disposed(by: self.monitorDisposeBag)
+//    }
+//
+//    private func reconnectHeartRate(_ state : BluetoothPeripheralState){
+//        if state == .connected {
+//            self.bindHeartRate()
+//        }
+//    }
+//
+//
+//    private func bindHeartRate(){
+//
+//        self.monitorDisposeBag = DisposeBag()
+//
+//        heartRateMonitor.heartRate.debug("💛").asDriver(onErrorJustReturn: 0).debug("💙")
+//            .debug("❤️")
+//            .map{$0.description}
+//            .debug("💚")
+//            .drive(self.heartRateLabel.rx.text)
+//            .disposed(by: monitorDisposeBag)
+//    }
+//
+//
+//    private func set(monitor: HeartRateMonitor) {
+//        self.heartRateMonitor = monitor
+//        self.bindHeartRateMonitor()
+//    }
 //    private func bindHeartRateMonitor(){
 //        self.heartRateMonitor.map{ $0.name}.drive(self.nameLabel.rx.text).disposed(by: disposeBag)
 //
@@ -137,23 +180,17 @@ class AutoConnectVC: UIViewController {
 //            .drive(self.heartRateLabel.rx.text)
 //            .disposed(by: self.disposeBag)
 //    }
-
-    private func scanMonitors() {
-        central.state.debug("😅").subscribe().disposed(by: disposeBag)
-        central.scanPeripherals()
-            .debug("💣")
-            .ignoreErrors()
-            .debug("🥺")
-            .bind(to: self.rx.autoconnectedMonitor)
-            .disposed(by: disposeBag)
-    }
 }
-
-extension Reactive where Base : AutoConnectVC {
-    var autoconnectedMonitor : Binder<HeartRateMonitor> {
-        return Binder(base) { vc, monitor in
-            vc.heartRateMonitor = monitor
-        }
-    }
-}
-
+//
+//extension Reactive where Base : AutoConnectVC {
+//    var autoconnectedMonitors : Binder<[HeartRateMonitor]> {
+//        return Binder(base) { vc, monitors in
+//            print("received monitors \( monitors )")
+//            guard let newMonitor = monitors.last else {return}
+//            guard vc.heartRateMonitor == nil else {return}
+//            vc.heartRateMonitor = newMonitor
+//            vc.bindHeartRateMonitor()
+//        }
+//    }
+//}
+//

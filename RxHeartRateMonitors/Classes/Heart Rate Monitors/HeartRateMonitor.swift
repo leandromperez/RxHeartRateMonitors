@@ -23,8 +23,8 @@ public class HeartRateMonitor {
         self.central = central
     }
     
-    public var heartRate: Driver<UInt> {
-        return self.peripheral.heartRate.asDriver(onErrorJustReturn: 0)
+    public var monitoredHeartRate: Observable<UInt> {
+        return self.peripheral.heartRate
     }
 }
 

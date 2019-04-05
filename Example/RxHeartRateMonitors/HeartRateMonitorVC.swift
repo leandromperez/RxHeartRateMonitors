@@ -104,7 +104,7 @@ final class HeartRateMonitorVC: UIViewController{
         
         self.hrDisposeBag = DisposeBag()
     
-        self.heartRateMonitor.heartRate
+        self.heartRateMonitor.monitoredHeartRate
             .map{$0.description}
             .asDriver(onErrorJustReturn: "N/A")
             .drive(self.heartRateLabel.rx.text)
