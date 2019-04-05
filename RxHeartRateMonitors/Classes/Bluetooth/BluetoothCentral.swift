@@ -27,7 +27,7 @@ final class BluetoothCentral : NSObject{
             queue: .main,
             options: [
                 showAlertKey : false as AnyObject,
-                restoreKey : "yourtrainer.bt.state.identifier" as AnyObject],
+                restoreKey : "yourcompany.bt.state.identifier" as AnyObject],
             onWillRestoreCentralManagerState: { [weak self] restoredState in
                 self?.saveRestoredState(restoredState)
         })
