@@ -36,6 +36,8 @@ extension HeartRateMonitorCentral : SpecifiedBluetoothCentral{
             .flatMap(weak: self){me,_ in me.scanPeripherals().materialize()}
             .elements()
             .scan([], accumulator: appendMonitor)
+            .distinctUntilChanged()
+            .share()
     }
     
     public var state: Observable<BluetoothState>{

@@ -33,7 +33,7 @@
                                 <color key="textColor" red="0.22" green="0.26000000000000001" blue="0.28999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="State" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="DxW-Sj-KdK" userLabel="State Value">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="State" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="DxW-Sj-KdK" userLabel="Bluetooth State Value">
                                 <rect key="frame" x="311" y="374" width="48" height="26"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                 <color key="textColor" red="0.27000000000000002" green="0.40999999999999998" blue="0.48999999999999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -110,10 +110,10 @@
                         <viewLayoutGuide key="safeArea" id="cvy-Js-b5y"/>
                     </view>
                     <connections>
-                        <outlet property="bluetoothStateLabel" destination="DxW-Sj-KdK" id="uI7-cL-5Ac"/>
-                        <outlet property="heartRateLabel" destination="Q6h-3M-Zqn" id="VsX-8I-ePB"/>
-                        <outlet property="monitorStateLabel" destination="KD9-cL-Slo" id="zx6-Tl-bCc"/>
-                        <outlet property="nameLabel" destination="gH5-g4-wqa" id="6NP-jj-RQf"/>
+                        <outlet property="bluetoothStateLabel" destination="DxW-Sj-KdK" id="T2v-5I-6q8"/>
+                        <outlet property="heartRateLabel" destination="Q6h-3M-Zqn" id="prg-sL-BVT"/>
+                        <outlet property="monitorStateLabel" destination="KD9-cL-Slo" id="T5W-Xg-fb6"/>
+                        <outlet property="nameLabel" destination="gH5-g4-wqa" id="JlJ-DH-YjT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="axi-YS-bjq" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -67,15 +67,17 @@ class AutoConnectVC: UIViewController {
             .noNils()
             .debug("last 🐳")
             .distinctUntilChanged()
-            .do(onNext: {
-                if $0.state == .disconnected {
-                    $0.connect().debug("📡").subscribe().disposed(by: bag)
+            .do(onNext: { monitor in
+                if monitor.state == .disconnected {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                        monitor.connect().debug("📡").subscribe().disposed(by: bag)
+                    })
                 }
             })
             .share()
 
         autoconnectedMonitor
-            .flatMap{$0.monitoredState.ignoreErrors().debug("inner state")}
+            .flatMap{$0.monitoredState.debug("inner state")}
             .debug("state")
             .asDriver(onErrorJustReturn: .disconnected)
             .map{ $0.description }
@@ -84,13 +86,13 @@ class AutoConnectVC: UIViewController {
 
         autoconnectedMonitor
             .debug("Monitor")
-            .flatMap{$0.monitoredHeartRate.debug("HR inner w/ errors").ignoreErrors().debug("HR inner")}
+            .flatMap{$0.monitoredHeartRate.debug("HR inner w/ errors")}
             .debug("HR outer")
 //            .subscribe()
             .asDriver(onErrorJustReturn: 0)
             .debug("HR driver")
             .map{ $0.description }
-            .drive(self.monitorStateLabel.rx.text)
+            .drive(self.heartRateLabel.rx.text)
             .disposed(by: disposeBag)
     }
 
