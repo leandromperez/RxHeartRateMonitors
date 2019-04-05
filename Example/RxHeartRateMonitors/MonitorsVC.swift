@@ -52,6 +52,7 @@ class MonitorsVC: UIViewController {
         cellProvider.registerCell(for: self.table, automaticRowHeight: true)
         
         self.central.monitors
+            .debug("monitors")
             .bind(to: self.table.rx.items) { (table, row, heartRateMonitor) in
                 let cell = cellProvider.cell(for: table, at: row)
                 cell.setup(with: heartRateMonitor)
@@ -69,7 +70,7 @@ class MonitorsVC: UIViewController {
     
     private func openDetails(of monitor:HeartRateMonitor){
     
-        let details : HeartRateMonitorVC = R.storyboard.heartRateMonitorVC().initialViewController()
+        let details : HeartRateMonitorVC = Storyboards.heartRateMonitorVC.initialViewController()
         details.setup(withCentral: self.central, heartRateMonitor: monitor)
         
         self.navigationController?.pushViewController(details, animated: true)

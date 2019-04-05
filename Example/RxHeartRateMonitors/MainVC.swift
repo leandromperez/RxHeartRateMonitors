@@ -18,13 +18,13 @@ class MainVC: UIViewController {
     }
 
     @IBAction func openMonitors(){
-        let monitorsVC : MonitorsVC = R.storyboard.monitorsVC().initialViewController()
+        let monitorsVC : MonitorsVC = Storyboards.monitorsVC.initialViewController()
         monitorsVC.setup(central: self.central)
         self.navigationController?.pushViewController(monitorsVC, animated: true)
     }
     
     @IBAction func openAutoConnect(){
-        let autoConnectVC : AutoConnectVC = R.storyboard.autoConnectVC().initialViewController()
+        let autoConnectVC : AutoConnectVC = Storyboards.autoConnectVC.initialViewController()
         autoConnectVC.setup(central: self.central)
         self.navigationController?.pushViewController(autoConnectVC, animated: true)
     }

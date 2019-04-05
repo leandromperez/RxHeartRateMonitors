@@ -9,39 +9,48 @@ import Foundation
 import RxBluetoothKit
 import RxSwift
 import CoreBluetooth
-import SwiftyUserDefaults
 import RxSwiftExt
 
 final class BluetoothCentral : NSObject{
     
     private let disposeBag = DisposeBag()
-    
-    private let manager : BluetoothManager
-    
+
     private var internalManager : CBCentralManager?
     
-    private var restoredState : RestoredState? = nil
-    
-    //MARK: - lifecycle
-    override init() {
-        
+    private var restoredState : CentralManagerRestoredState? = nil
+
+    lazy var manager : CentralManager = {
         let restoreKey = CBCentralManagerOptionRestoreIdentifierKey
         let showAlertKey = CBCentralManagerOptionShowPowerAlertKey
-        self.manager = BluetoothManager(queue: .main, options: [showAlertKey : false as AnyObject,
-                                                                restoreKey : "rx.hr.monitors.identifiers" as AnyObject])
-        
-        super.init()
+
+        return CentralManager(
+            queue: .main,
+            options: [
+                showAlertKey : false as AnyObject,
+                restoreKey : "yourtrainer.bt.state.identifier" as AnyObject],
+            onWillRestoreCentralManagerState: { [weak self] restoredState in
+                self?.saveRestoredState(restoredState)
+        })
+    }()
+
+
+    public func initialize() {
+        _ = self.manager
     }
-    
+
     deinit {
         self.internalManager?.delegate = nil
     }
     
     //MARK: - public
-    
+
+    func disconnect(peripheral : Peripheral) {
+        self.manager.centralManager.cancelPeripheralConnection(peripheral.peripheral)
+    }
+
     var state: Observable<BluetoothState> {
         
-        return self.manager.rx_state
+        return self.manager.observeState()
             .startWith(self.manager.state)
             .distinctUntilChanged()
     }
@@ -49,22 +58,20 @@ final class BluetoothCentral : NSObject{
     func connectedPeripheralsWithSavedFirst(withServices services:[CBUUID]) -> Observable<Peripheral> {
         let saved = self.savedPeripheralUUIDs
         
-        return self.manager
+        let peripherals : [Peripheral] = self.manager
             .retrieveConnectedPeripherals(withServices: services )
-            .map{ all -> [Peripheral] in
-                let sorted = all.sorted(by: {a,b in saved.contains(a.uuid) ? true : false  } )
-                return sorted
-            }
-            .flatMap{Observable.from($0)}
+            .sorted(by: {first, _ in saved.contains(first.uuid) ? true : false  })
+
+        return Observable<Peripheral>.from(peripherals, scheduler: MainScheduler.instance)
     }
-    
+
     func connectedPeripherals(withServices services:[CBUUID]) -> Observable<Peripheral> {
         return self.connectedPeripheralsWithSavedFirst(withServices: services)
     }
     
     func scanPeripherals(withServices services: [CBUUID]) -> Observable<Peripheral> {
         return self.manager
-            .scanForPeripherals(withServices: services)
+            .scanForPeripherals(withServices: services).debug("🚀 original scan")
             .map{$0.peripheral}
     }
     
@@ -87,33 +94,31 @@ final class BluetoothCentral : NSObject{
         let saved = self.savedPeripheralUUIDs
         let newOnes : Observable<Peripheral> = self.manager.scanForPeripherals(withServices: services)
             .filter{saved.contains($0.peripheral.uuid)}
-            .flatMap {$0.peripheral.connect().materialize()}
-            .elements()
+            .flatMap {$0.peripheral.establishConnection().materialize().elements()}
             .filter{$0.state.isConnected}
         
         return alreadyConnected.concat(newOnes)
     }
-    
-    func restoreState(){
-        return self.manager.listenOnRestoredState()
-            .subscribeNext(weak: self, BluetoothCentral.saveRestoredState)
-            .disposed(by: self.disposeBag)
-    }
-    
+
     func save(peripheralUUID: String) {
         if(!self.savedPeripheralUUIDs.contains(peripheralUUID)){
             self.savedPeripheralUUIDs.append(peripheralUUID)
         }
     }
-    
+
+    func has(saved uuid: String) -> Bool {
+        return self.savedPeripheralUUIDs.contains(uuid)
+    }
+
     //Mark: - private
-    
-    private var savedPeripheralUUIDs : [String] {
+
+    let savedBluetoothDevicesIds = "savedBluetoothDevicesIds"
+    public var savedPeripheralUUIDs : [String] {
         get{
-            return Defaults[.savedBluetoothDevicesIds]
+            return UserDefaults.standard.stringArray(forKey: savedBluetoothDevicesIds) ?? []
         }
         set{
-            Defaults[.savedBluetoothDevicesIds] = newValue
+            UserDefaults.standard.setValue(newValue, forKey: savedBluetoothDevicesIds)
         }
     }
 
@@ -123,7 +128,7 @@ final class BluetoothCentral : NSObject{
         }
     }
     
-    private func saveRestoredState(_ state : RestoredState){
+    private func saveRestoredState(_ state : CentralManagerRestoredState){
         self.restoredState = state
     }
 }
@@ -133,8 +138,3 @@ extension BluetoothCentral : CBCentralManagerDelegate{
         //Do nothing on purpose, just for the hack explained above
     }
 }
-
-extension DefaultsKeys {
-    static let savedBluetoothDevicesIds =  DefaultsKey<[String]>("savedBluetoothDevicesIds")
-}
-

@@ -50,10 +50,14 @@ final class HeartRateMonitorVC: UIViewController{
     //MARK: - private
     
     private func bindState(){
+        let initialState = self.heartRateMonitor.state
         let state = self.heartRateMonitor
             .monitoredState
+            .startWith(initialState)
+            .debug("monitored state")
             .asDriver(onErrorJustReturn: .disconnected)
-        
+            .debug("driver")
+
         state
             .map{$0.description}
             .debug()
@@ -104,7 +108,7 @@ final class HeartRateMonitorVC: UIViewController{
         
         self.hrDisposeBag = DisposeBag()
     
-        self.heartRateMonitor.heartRate
+        self.heartRateMonitor.monitoredHeartRate
             .map{$0.description}
             .asDriver(onErrorJustReturn: "N/A")
             .drive(self.heartRateLabel.rx.text)
@@ -115,28 +119,24 @@ final class HeartRateMonitorVC: UIViewController{
         self.nameLabel.text = self.heartRateMonitor.name ?? "Name not available"
     }
     
-    private func toogleConnection(dependingOn state:BluetoothPeripheralState) -> Observable<BluetoothPeripheral>{
-        
+    private func toggleConnection(dependingOn state:BluetoothPeripheralState) {
         if state != .connected{
-            return self.heartRateMonitor.connect()
+            self.heartRateMonitor.connect().subscribe().disposed(by: disposeBag)
         }
-        else{
-            return self.heartRateMonitor.disconnect()
+        else {
+            self.heartRateMonitor.disconnect()
         }
     }
     
     private func bindConnectButton(){
-        let state = self.heartRateMonitor.monitoredState.startWith(.disconnected)
+        let state = self.heartRateMonitor.monitoredState
+            .startWith(self.heartRateMonitor.state)
         
         self.connectButton.rx.tap
             .asObservable()
             .debounce(0.5, scheduler:MainScheduler.instance)
             .withLatestFrom(state)
-            .flatMapLatest{[unowned self] state in
-                self.toogleConnection(dependingOn: state)
-                    .materialize()
-            }
-            .subscribe()
+            .subscribeNext(weak: self, HeartRateMonitorVC.toggleConnection)
             .disposed(by: disposeBag)
     }
 }

@@ -1,20 +1,13 @@
-//
-//  Logging.swift
-//  RxBluetoothKit
-//
-//  Created by Przemysław Lenart on 23/05/17.
-//  Copyright © 2017 Polidea. All rights reserved.
-//
-
 import Foundation
 import CoreBluetooth
+import RxSwift
 
-/**
- RxBluetoothKit specific logging class which gives access to its settings.
- */
-public class RxBluetoothKitLog {
+/// RxBluetoothKit specific logging class which gives access to its settings.
+public class RxBluetoothKitLog: ReactiveCompatible {
 
     fileprivate static var currentLogLevel: LogLevel = .none
+
+    fileprivate static let subject = PublishSubject<String>()
 
     private init() {
     }
@@ -35,18 +28,14 @@ public class RxBluetoothKitLog {
         case error = 4
     }
 
-    /**
-     * Set new log level.
-     * - Parameter logLevel: New log level to be applied.
-     */
+    /// Set new log level.
+    /// - Parameter logLevel: New log level to be applied.
     public static func setLogLevel(_ logLevel: LogLevel) {
         currentLogLevel = logLevel
     }
 
-    /**
-     * Get current log level.
-     * - Returns: Currently set log level.
-     */
+    /// Get current log level.
+    /// - Returns: Currently set log level.
     public static func getLogLevel() -> LogLevel {
         return currentLogLevel
     }
@@ -78,7 +67,9 @@ public class RxBluetoothKitLog {
 
     fileprivate static func log(with logLevel: LogLevel, message: @autoclosure () -> String) {
         if currentLogLevel <= logLevel {
-            print(tag(with: logLevel), message())
+            let string = "\(tag(with: logLevel)) \(message())"
+            subject.onNext(string)
+            print(string)
         }
     }
 
@@ -177,7 +168,7 @@ extension CBCentralManager: Loggable {
 
 extension CBPeripheral: Loggable {
     @objc var logDescription: String {
-        return "Peripheral(uuid: \(value(forKey: "identifier") as! NSUUID as UUID), name: \(String(describing: name)))"
+        return "Peripheral(uuid: \(uuidIdentifier), name: \(String(describing: name)))"
     }
 }
 
@@ -199,8 +190,49 @@ extension CBDescriptor: Loggable {
     }
 }
 
+extension CBPeripheralManager: Loggable {
+    @objc var logDescription: String {
+        return "PeripheralManager(\(UInt(bitPattern: ObjectIdentifier(self))))"
+    }
+}
+
+extension CBATTRequest: Loggable {
+    @objc var logDescription: String {
+        return "ATTRequest(\(UInt(bitPattern: ObjectIdentifier(self)))"
+    }
+}
+
+extension CBCentral: Loggable {
+    @objc var logDescription: String {
+        return "CBCentral(uuid: \(uuidIdentifier))"
+    }
+}
+
+@available(iOS 11.0, macOS 10.13, tvOS 11.0, watchOS 4.0, *)
+extension CBL2CAPChannel: Loggable {
+    @objc var logDescription: String {
+        return "CBL2CAPChannel(\(UInt(bitPattern: ObjectIdentifier(self)))"
+    }
+}
+
 extension Array where Element: Loggable {
     var logDescription: String {
         return "[\(map { $0.logDescription }.joined(separator: ", "))]"
+    }
+}
+
+extension Reactive where Base == RxBluetoothKitLog {
+    /**
+     * This is continuous value, which emits before a log is printed to standard output.
+     *
+     * - it never fails
+     * - it delivers events on `MainScheduler.instance`
+     * - `share(scope: .whileConnected)` sharing strategy
+     */
+    public var log: Observable<String> {
+        return RxBluetoothKitLog.subject.asObserver()
+            .observeOn(MainScheduler.instance)
+            .catchErrorJustReturn("")
+            .share(scope: .whileConnected)
     }
 }

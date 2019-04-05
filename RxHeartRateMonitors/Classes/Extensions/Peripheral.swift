@@ -11,6 +11,9 @@ import RxBluetoothKit
 import RxSwift
 import CoreBluetooth
 
+public enum PeripheralError : Error {
+    case incorrectType
+}
 extension Peripheral : BluetoothPeripheral {
     
     public var uuid: String {
@@ -18,26 +21,16 @@ extension Peripheral : BluetoothPeripheral {
     }
     
     public var monitoredState: Observable<BluetoothPeripheralState> {
-        return self.rx_isConnected.map{$0  ? .connected : .disconnected}
+        return self.observeConnection().map{$0  ? .connected : .disconnected}
     }
     
     public var state: BluetoothPeripheralState {
-        return BluetoothPeripheralState(cbPeripheralState: self.cbPeripheral.state)
+        return BluetoothPeripheralState(cbPeripheralState: self.peripheral.state)
     }
-    
-    public func connect() -> Observable<BluetoothPeripheral> {
-        let connection : Observable<Peripheral> = self.connect()
-        return connection.map{$0}
-    }
-    
-    public func disconnect() -> Observable<BluetoothPeripheral> {
-        let connection : Observable<Peripheral> = self.cancelConnection()
-        return connection.map{$0}
-    }
-    
+
     public var heartRate: Observable<UInt>{
         
-        return self.setNotificationAndMonitorUpdates(for: BluetoothCharacteristics.heartRateMeasurement)
+        return self.observeValueUpdateAndSetNotification(for: BluetoothCharacteristics.heartRateMeasurement)
             .map { $0.value }
             .flatMap { Observable.from(optional: $0) }
             .map {$0.heartRateValue()}

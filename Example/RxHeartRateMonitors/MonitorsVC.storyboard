@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="0I1-Kk-EAv">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="0I1-Kk-EAv">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -13,7 +13,6 @@
         <!--MonitorsVC-->
         <scene sceneID="NXc-ak-5cU">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="gzB-u0-5ce" sceneMemberID="firstResponder"/>
                 <viewController id="0I1-Kk-EAv" customClass="MonitorsVC" customModule="RxHeartRateMonitors_Example" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="xHb-bs-17A"/>
@@ -36,13 +35,13 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="uWF-IO-2sw" firstAttribute="bottom" secondItem="VuD-cE-Yyw" secondAttribute="top" id="JQS-Sd-hFq"/>
+                            <constraint firstItem="uWF-IO-2sw" firstAttribute="bottom" secondItem="GxV-dh-kH9" secondAttribute="bottom" id="FMj-DM-8Ws"/>
                             <constraint firstItem="Wfb-1r-5dy" firstAttribute="trailing" secondItem="uWF-IO-2sw" secondAttribute="trailing" id="NGe-Qy-ZCH"/>
+                            <constraint firstItem="Wfb-1r-5dy" firstAttribute="trailing" secondItem="GxV-dh-kH9" secondAttribute="trailing" id="RAW-eU-zMS"/>
+                            <constraint firstItem="Wfb-1r-5dy" firstAttribute="top" secondItem="GxV-dh-kH9" secondAttribute="top" id="RyT-gf-hVH"/>
                             <constraint firstItem="Wfb-1r-5dy" firstAttribute="leading" secondItem="uWF-IO-2sw" secondAttribute="leading" id="VRl-A3-7IT"/>
-                            <constraint firstAttribute="trailing" secondItem="Wfb-1r-5dy" secondAttribute="trailing" id="a0f-Ly-5FA"/>
-                            <constraint firstItem="Wfb-1r-5dy" firstAttribute="top" secondItem="xHb-bs-17A" secondAttribute="bottom" id="dXu-XL-q1L"/>
                             <constraint firstItem="uWF-IO-2sw" firstAttribute="top" secondItem="Wfb-1r-5dy" secondAttribute="bottom" constant="8" symbolic="YES" id="gpd-63-Oa7"/>
-                            <constraint firstItem="Wfb-1r-5dy" firstAttribute="leading" secondItem="RP9-xd-Ghk" secondAttribute="leading" id="nRt-vo-QR1"/>
+                            <constraint firstItem="Wfb-1r-5dy" firstAttribute="leading" secondItem="GxV-dh-kH9" secondAttribute="leading" id="v2P-3C-Moc"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="GxV-dh-kH9"/>
                     </view>
@@ -52,6 +51,7 @@
                         <outlet property="table" destination="uWF-IO-2sw" id="aEo-M0-myz"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gzB-u0-5ce" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="138.40000000000001" y="132.68365817091455"/>
         </scene>
