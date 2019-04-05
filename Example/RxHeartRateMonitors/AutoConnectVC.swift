@@ -27,11 +27,11 @@ class AutoConnectVC: UIViewController {
     @IBOutlet weak var heartRateLabel : UILabel!
 
     //MARK: - lifecycle
-    
+
     func setup(central: HeartRateMonitorCentral){
         self.central = central
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -56,43 +56,43 @@ class AutoConnectVC: UIViewController {
     private func bindAutoconnectedMonitor() {
         guard let central = self.central else {fatalError()}
 
-        let bag = monitorDisposeBag
+        central.monitors
+            .map{ $0.first }
+            .noNils()
+            .debug("[🐳]")
+            .subscribeNext(weak: self, AutoConnectVC.set(monitor:))
+            .disposed(by: disposeBag)
+    }
 
-        let createMonitor : (Peripheral) -> HeartRateMonitor = { [unowned central] per in
+    func set(monitor:HeartRateMonitor) {
+        guard let central = self.central else {fatalError()}
+
+        let createMonitor : (Peripheral) -> HeartRateMonitor? = { [weak central] per in
+            guard let central = central else {return nil}
             return HeartRateMonitor(peripheral: per, central: central)
         }
 
         let connectedMonitor = self.rx.autoconnectedMonitor
-        let autoconnectedMonitor : Observable<HeartRateMonitor> = central.monitors
-            .debug("[🐳]")
-            .map{ $0.first }
-            .debug("1 🐳")
-            .noNils()
-            .debug("last 🐳")
-            .do(onNext: { monitor in
-//                if monitor.state == .disconnected {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
-                        monitor.connect()
-                            .debug("📡")
-                            .map(createMonitor)
-                            .asDriver(onErrorDriveWith: .never())
-                            .filter{$0.state == .connected}
-                            .drive(connectedMonitor)
-                            .disposed(by: bag)
-                    })
-//                }
-            })
-            .share()
 
-        autoconnectedMonitor
-            .debug("name")
-            .map{$0.name}
-            .asDriver(onErrorJustReturn: "Unknown device")
-            .drive(self.monitorName.rx.text)
-            .disposed(by: disposeBag)
+        if monitor.state == .disconnected {
+            monitor.connect()
+                .debug("📡")
+                .map(createMonitor)
+                .asDriver(onErrorDriveWith: .never())
+                .noNils()
+                .filter{$0.state == .connected}
+                .drive(connectedMonitor)
+                .disposed(by: disposeBag)
+        } else {
+            connectedMonitor.onNext(monitor)
+        }
+    }
 
-        autoconnectedMonitor
-            .flatMap{$0.monitoredState.debug("inner state")}
+    func observeState() {
+        guard let monitor = heartRateMonitor else {fatalError()}
+        guard monitor.state == .connected else {fatalError()}
+
+        monitor.monitoredState
             .debug("state")
             .asDriver(onErrorJustReturn: .disconnected)
             .map{ $0.description }
@@ -129,7 +129,10 @@ extension Reactive where Base : AutoConnectVC {
             vc.heartRateMonitor = monitor
             vc.observeHeartRate()
             vc.observeName()
+            vc.observeState()
         }
     }
 }
+
+
 
