@@ -15,9 +15,9 @@ public protocol SpecifiedBluetoothCentral{
     
     var state : Observable<BluetoothState> {get}
     
-    func connectedPeripherals() -> Observable<PeripheralType>
-    func scanPeripherals() -> Observable<PeripheralType>
-    func connectToFirstAvailablePeripheral() -> Observable<PeripheralType>
+//    func connectedPeripherals() -> Observable<PeripheralType>
+//    func scanPeripherals() -> Observable<PeripheralType>
+//    func connectToFirstAvailablePeripheral() -> Observable<PeripheralType>
 
     func connect() -> Observable<BluetoothState>
     
