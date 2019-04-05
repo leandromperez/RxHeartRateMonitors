@@ -112,8 +112,8 @@
                     <connections>
                         <outlet property="bluetoothStateLabel" destination="DxW-Sj-KdK" id="T2v-5I-6q8"/>
                         <outlet property="heartRateLabel" destination="Q6h-3M-Zqn" id="prg-sL-BVT"/>
+                        <outlet property="monitorName" destination="gH5-g4-wqa" id="JlJ-DH-YjT"/>
                         <outlet property="monitorStateLabel" destination="KD9-cL-Slo" id="T5W-Xg-fb6"/>
-                        <outlet property="nameLabel" destination="gH5-g4-wqa" id="JlJ-DH-YjT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="axi-YS-bjq" userLabel="First Responder" sceneMemberID="firstResponder"/>
