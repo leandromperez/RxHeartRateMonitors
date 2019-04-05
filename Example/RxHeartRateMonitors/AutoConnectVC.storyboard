@@ -110,7 +110,7 @@
                         <viewLayoutGuide key="safeArea" id="cvy-Js-b5y"/>
                     </view>
                     <connections>
-                        <outlet property="bluetoothStateLabel" destination="DxW-Sj-KdK" id="T2v-5I-6q8"/>
+                        <outlet property="bluetoothStateLabel" destination="JoC-Pt-3WS" id="tur-ev-rGe"/>
                         <outlet property="heartRateLabel" destination="Q6h-3M-Zqn" id="prg-sL-BVT"/>
                         <outlet property="monitorName" destination="gH5-g4-wqa" id="JlJ-DH-YjT"/>
                         <outlet property="monitorStateLabel" destination="KD9-cL-Slo" id="T5W-Xg-fb6"/>
