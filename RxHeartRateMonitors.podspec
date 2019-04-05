@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'RxHeartRateMonitors'
-  s.version          = '0.0.2'
+  s.version          = '0.0.3'
   s.summary          = 'RxHeartRateMonitors is a lightweight layer on top of RxBluetoothKit and Core Bluetooth to interact with BTLE Heart Rate Monitors.'
 
   s.description      = <<-DESC
