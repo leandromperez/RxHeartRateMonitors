@@ -84,9 +84,6 @@ class AutoConnectVC: UIViewController {
 
         autoconnectedMonitor
             .debug("Monitor")
-            .filter{ $0.state == .connected}
-            .debug("Connected Monitor")
-            .distinctUntilChanged()
             .flatMap{$0.monitoredHeartRate.debug("HR inner w/ errors").ignoreErrors().debug("HR inner")}
             .debug("HR outer")
 //            .subscribe()
