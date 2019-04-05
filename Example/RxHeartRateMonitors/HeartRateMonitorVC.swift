@@ -50,10 +50,14 @@ final class HeartRateMonitorVC: UIViewController{
     //MARK: - private
     
     private func bindState(){
+        let initialState = self.heartRateMonitor.state
         let state = self.heartRateMonitor
             .monitoredState
+            .startWith(initialState)
+            .debug("monitored state")
             .asDriver(onErrorJustReturn: .disconnected)
-        
+            .debug("driver")
+
         state
             .map{$0.description}
             .debug()
@@ -115,7 +119,7 @@ final class HeartRateMonitorVC: UIViewController{
         self.nameLabel.text = self.heartRateMonitor.name ?? "Name not available"
     }
     
-    private func toogleConnection(dependingOn state:BluetoothPeripheralState) {
+    private func toggleConnection(dependingOn state:BluetoothPeripheralState) {
         if state != .connected{
             self.heartRateMonitor.connect().subscribe().disposed(by: disposeBag)
         }
@@ -125,16 +129,14 @@ final class HeartRateMonitorVC: UIViewController{
     }
     
     private func bindConnectButton(){
-        let state = self.heartRateMonitor.monitoredState.startWith(.disconnected)
+        let state = self.heartRateMonitor.monitoredState
+            .startWith(self.heartRateMonitor.state)
         
         self.connectButton.rx.tap
             .asObservable()
             .debounce(0.5, scheduler:MainScheduler.instance)
             .withLatestFrom(state)
-            .do(onNext: {[unowned self] state in
-                self.toogleConnection(dependingOn: state)
-            })
-            .subscribe()
+            .subscribeNext(weak: self, HeartRateMonitorVC.toggleConnection)
             .disposed(by: disposeBag)
     }
 }

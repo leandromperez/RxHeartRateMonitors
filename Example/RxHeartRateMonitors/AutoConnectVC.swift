@@ -66,7 +66,8 @@ class AutoConnectVC: UIViewController {
             .disposed(by: disposeBag)
 
         monitor.map{$0.name}
-            .bind(to: self.monitorName.rx.text)
+            .asDriver(onErrorJustReturn: "Unknown device")
+            .drive(self.monitorName.rx.text)
             .disposed(by: disposeBag)
 
         monitor.flatMap{ $0.monitoredHeartRate}

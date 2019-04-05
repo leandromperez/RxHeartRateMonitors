@@ -71,7 +71,7 @@ final class BluetoothCentral : NSObject{
     
     func scanPeripherals(withServices services: [CBUUID]) -> Observable<Peripheral> {
         return self.manager
-            .scanForPeripherals(withServices: services)
+            .scanForPeripherals(withServices: services).debug("🚀 original scan")
             .map{$0.peripheral}
     }
     

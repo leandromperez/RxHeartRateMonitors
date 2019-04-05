@@ -14,9 +14,9 @@ import RxCocoa
 
 public class HeartRateMonitorCentral : NSObject{
 
-    private let disposeBag = DisposeBag()
+    private var connectToFirstMonitorBag = DisposeBag()
     private let central = BluetoothCentral()
-    private let autoconnectedMonitor = PublishRelay<HeartRateMonitor>()
+    private let autoconnectedMonitor = PublishSubject<HeartRateMonitor>()
 
     //MARK: - private
     private var requiredServices : [CBUUID] {
@@ -34,9 +34,11 @@ extension HeartRateMonitorCentral : SpecifiedBluetoothCentral{
     
     //MARK: - public
     public var monitors : Observable<[HeartRateMonitor]> {
+
         return self.state
+            .debug("central state")
             .filter{$0 == .poweredOn}
-            .flatMap(weak: self){me,_ in me.scanPeripherals().materialize()}
+            .flatMap(weak: self){me,_ in me.scanPeripherals().materialize().debug("materialized scan")}
             .elements()
             .scan([], accumulator: appendMonitor)
             .distinctUntilChanged()
@@ -60,13 +62,14 @@ extension HeartRateMonitorCentral : SpecifiedBluetoothCentral{
     }
 
     public func connectToLastSavedMonitor() -> Observable<HeartRateMonitor> {
+        connectToFirstMonitorBag = DisposeBag()
         DispatchQueue.main.async {
             self.monitors
                 .map{ $0.first }
                 .noNils()
                 .debug("[🐳]")
                 .subscribeNext(weak: self, HeartRateMonitorCentral.connect(to:))
-                .disposed(by: self.disposeBag)
+                .disposed(by: self.connectToFirstMonitorBag)
         }
 
         return self.autoconnectedMonitor.asObservable()
@@ -83,19 +86,13 @@ extension HeartRateMonitorCentral : SpecifiedBluetoothCentral{
 
         if monitor.state == .disconnected {
             monitor.connect()
-                .debug("📡")
                 .map(createMonitor)
-//                .asDriver(onErrorRecover: { (error) -> SharedSequence<DriverSharingStrategy, HeartRateMonitor?> in
-//                    connectedMonitor.onError(error)
-//                    return .never()
-//                })
                 .noNils()
                 .filter{$0.state == .connected}
                 .bind(to: connectedMonitor)
-//                .drive(connectedMonitor)
-                .disposed(by: disposeBag)
+                .disposed(by: connectToFirstMonitorBag)
         } else {
-            connectedMonitor.accept(monitor)
+            connectedMonitor.onNext(monitor)
         }
     }
 
@@ -103,43 +100,19 @@ extension HeartRateMonitorCentral : SpecifiedBluetoothCentral{
     private func createHeartRateMonitor(from peripheral:Peripheral) -> Observable<HeartRateMonitor>{
         return .just(HeartRateMonitor(peripheral: peripheral, central: self))
     }
-    
-//    public func connectedPeripherals() -> Observable<HeartRateMonitor> {
-//
-//        return self.central
-//            .connectedPeripherals(withServices: self.requiredServices)
-//            .flatMap(weak: self, HeartRateMonitorCentral.createHeartRateMonitor)
-//    }
 
     private func scanPeripherals() -> Observable<HeartRateMonitor> {
+        connectToFirstMonitorBag = DisposeBag()
+
         let alreadyConnected = self.central.connectedPeripheralsWithSavedFirst(withServices:self.requiredServices)
             .flatMap(weak: self, HeartRateMonitorCentral.createHeartRateMonitor)
+
 
         let newOnes = self.central.scanPeripherals(withServices: self.requiredServices)
             .flatMap(weak: self, HeartRateMonitorCentral.createHeartRateMonitor)
 
         return Observable.of(alreadyConnected,newOnes).merge()
     }
-
-//    public func connectToFirstAvailablePeripheral() -> Observable<HeartRateMonitor> {
-//        return self.central.previouslyConnectedDevices(withServices: self.requiredServices)
-//            .flatMap(weak: self, HeartRateMonitorCentral.createHeartRateMonitor)
-//            .take(1)
-//    }
-//
-//    public func whenOnlineConnectToFirstAvailablePeripheral() -> Observable<HeartRateMonitor> {
-//
-//        let state = self.central.state
-//
-//        return state
-//            .filter{$0.isOn}
-//            .flatMap(weak:self){me, _  in
-//                me.connectToFirstAvailablePeripheral().materialize()}
-//            .elements()
-//            .debug("Connected monitor")
-//    }
-
-
 
 }
 

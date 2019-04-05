@@ -52,7 +52,9 @@ extension HeartRateMonitor: BluetoothPeripheral{
     }
 
     public func disconnect() {
-        self.central.disconnect(peripheral: self.peripheral)
+        if self.peripheral.state == .connected {
+            self.central.disconnect(peripheral: self.peripheral)
+        }
     }
 }
 
