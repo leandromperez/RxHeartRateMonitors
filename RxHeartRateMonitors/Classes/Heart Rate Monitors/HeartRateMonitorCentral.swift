@@ -63,11 +63,14 @@ extension HeartRateMonitorCentral : SpecifiedBluetoothCentral{
 
     public func connectToLastSavedMonitor() -> Observable<HeartRateMonitor> {
         connectToFirstMonitorBag = DisposeBag()
+        let savedList = self.central.savedPeripheralUUIDs
         DispatchQueue.main.async {
             self.monitors
-                .map{ $0.first }
+                .map{ monitors -> HeartRateMonitor? in
+                    return monitors.last{ savedList.contains($0.uuid) }
+                }
                 .noNils()
-                .debug("[🐳]")
+                .debug("found monitor 🐳")
                 .subscribeNext(weak: self, HeartRateMonitorCentral.connect(to:))
                 .disposed(by: self.connectToFirstMonitorBag)
         }

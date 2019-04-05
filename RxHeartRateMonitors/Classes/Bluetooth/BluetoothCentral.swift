@@ -113,7 +113,7 @@ final class BluetoothCentral : NSObject{
     //Mark: - private
 
     let savedBluetoothDevicesIds = "savedBluetoothDevicesIds"
-    private var savedPeripheralUUIDs : [String] {
+    public var savedPeripheralUUIDs : [String] {
         get{
             return UserDefaults.standard.stringArray(forKey: savedBluetoothDevicesIds) ?? []
         }
