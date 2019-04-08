@@ -25,7 +25,7 @@ It leverages the power of RxBluetoothKit and Corebluetooth to allow you to commu
   s.author           = { 'Leandro Perez' => 'leandromperez@gmail.com' }
   s.source           = { :git => 'https://github.com/leandromperez/RxHeartRateMonitors.git', :tag => s.version.to_s }
   s.social_media_url = 'https://medium.com/@leandromperez'
-
+  s.swift_version = '4.2'
   s.ios.deployment_target = '11.0'
 
   s.source_files = 'RxHeartRateMonitors/Classes/**/*'

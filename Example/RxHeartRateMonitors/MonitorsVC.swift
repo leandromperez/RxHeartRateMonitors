@@ -10,7 +10,6 @@ import UIKit
 import RxSwift
 import RxHeartRateMonitors
 
-
 class MonitorsVC: UIViewController {
 
     @IBOutlet weak var table : UITableView!
@@ -51,7 +50,7 @@ class MonitorsVC: UIViewController {
         let cellProvider : CellProvider<HeartRateMonitorCell> = CellProvider()
         cellProvider.registerCell(for: self.table, automaticRowHeight: true)
         
-        self.central.monitors
+        self.central.peripherals
             .debug("monitors")
             .bind(to: self.table.rx.items) { (table, row, heartRateMonitor) in
                 let cell = cellProvider.cell(for: table, at: row)

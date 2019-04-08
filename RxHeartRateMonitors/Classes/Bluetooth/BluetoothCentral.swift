@@ -100,14 +100,20 @@ final class BluetoothCentral : NSObject{
         return alreadyConnected.concat(newOnes)
     }
 
-    func save(peripheralUUID: String) {
-        if(!self.savedPeripheralUUIDs.contains(peripheralUUID)){
-            self.savedPeripheralUUIDs.append(peripheralUUID)
+    func remove(peripheral: Peripheral) {
+        if(self.savedPeripheralUUIDs.contains(peripheral.uuid)){
+            self.savedPeripheralUUIDs.remove(element:peripheral.uuid)
         }
     }
 
-    func has(saved uuid: String) -> Bool {
-        return self.savedPeripheralUUIDs.contains(uuid)
+    func save(peripheral: Peripheral) {
+        if(!self.savedPeripheralUUIDs.contains(peripheral.uuid)){
+            self.savedPeripheralUUIDs.append(peripheral.uuid)
+        }
+    }
+
+    func has(saved peripheral: Peripheral) -> Bool {
+        return self.savedPeripheralUUIDs.contains(peripheral.uuid)
     }
 
     //Mark: - private
@@ -122,11 +128,7 @@ final class BluetoothCentral : NSObject{
         }
     }
 
-    private func remove(savedMonitor monitor: Peripheral) {
-        if(self.savedPeripheralUUIDs.contains(monitor.uuid)){
-            self.savedPeripheralUUIDs.remove(element:monitor.uuid)
-        }
-    }
+
     
     private func saveRestoredState(_ state : CentralManagerRestoredState){
         self.restoredState = state
