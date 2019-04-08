@@ -14,9 +14,8 @@ import RxCocoa
 
 public class HeartRateMonitorCentral : NSObject{
 
-    private var connectToFirstMonitorBag = DisposeBag()
     private let central = BluetoothCentral()
-    private let autoconnectedMonitor = PublishSubject<HeartRateMonitor>()
+    let autoconnectedMonitor = PublishSubject<HeartRateMonitor>()
 
     //MARK: - private
     private var requiredServices : [CBUUID] {
@@ -66,42 +65,34 @@ extension HeartRateMonitorCentral : SpecifiedBluetoothCentral{
     }
 
     public func connectToLastSavedMonitor() -> Observable<HeartRateMonitor> {
-        connectToFirstMonitorBag = DisposeBag()
-        let savedList = self.central.savedPeripheralUUIDs
-        DispatchQueue.main.async {
-            self.peripherals
-                .map{ monitors -> HeartRateMonitor? in
-                    return monitors.last{ savedList.contains($0.uuid) }
-                }
-                .noNils()
-                .debug("found monitor 🐳")
-                .subscribeNext(weak: self, HeartRateMonitorCentral.connect(to:))
-                .disposed(by: self.connectToFirstMonitorBag)
-        }
 
-        return self.autoconnectedMonitor.asObservable()
+        let savedList = self.central.savedPeripheralUUIDs
+
+        return self.peripherals
+            .map{ monitors -> HeartRateMonitor? in
+                return monitors.last{ savedList.contains($0.uuid) }
+            }
+            .noNils()
+            .debug("found monitor 🐳")
+            .flatMap(weak: self, HeartRateMonitorCentral.connect(monitor:))
     }
 
-    func connect(to monitor:HeartRateMonitor) {
-
+    private func connect(monitor: HeartRateMonitor) -> Observable<HeartRateMonitor> {
         let createMonitor : (Peripheral) -> HeartRateMonitor? = { [weak self] per in
             guard let central = self else {return nil}
             return HeartRateMonitor(peripheral: per, central: central)
         }
 
-        let connectedMonitor = self.autoconnectedMonitor
-
         if monitor.state == .disconnected {
-            monitor.connect()
+            return monitor.connect()
                 .map(createMonitor)
                 .noNils()
                 .filter{$0.state == .connected}
-                .bind(to: connectedMonitor)
-                .disposed(by: connectToFirstMonitorBag)
         } else {
-            connectedMonitor.onNext(monitor)
+            return .just(monitor)
         }
     }
+
 
     //MARK: - private
 
@@ -110,7 +101,6 @@ extension HeartRateMonitorCentral : SpecifiedBluetoothCentral{
     }
 
     private func scanPeripherals() -> Observable<HeartRateMonitor> {
-        connectToFirstMonitorBag = DisposeBag()
 
         let alreadyConnected = self.central.connectedPeripheralsWithSavedFirst(withServices:self.requiredServices)
             .flatMap(weak: self, HeartRateMonitorCentral.createHeartRateMonitor)
