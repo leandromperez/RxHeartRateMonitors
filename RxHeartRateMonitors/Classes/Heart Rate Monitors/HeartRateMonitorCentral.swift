@@ -33,7 +33,7 @@ extension HeartRateMonitorCentral : SpecifiedBluetoothCentral{
     public typealias PeripheralType = HeartRateMonitor
     
     //MARK: - public
-    public var monitors : Observable<[HeartRateMonitor]> {
+    public var peripherals : Observable<[HeartRateMonitor]> {
 
         return self.state
             .debug("central state")
@@ -53,19 +53,23 @@ extension HeartRateMonitorCentral : SpecifiedBluetoothCentral{
         return self.central.connect()
     }
 
-    public func save(peripheral: HeartRateMonitor) {
-        self.central.save(peripheralUUID:peripheral.uuid)
+    public func save(peripheral monitor: HeartRateMonitor) {
+        self.central.save(peripheral:monitor.peripheral)
     }
 
-    public func has(saved monitor: HeartRateMonitor) -> Bool {
-        return self.central.has(saved: monitor.uuid)
+    public func remove(peripheral monitor: HeartRateMonitor) {
+        self.central.save(peripheral:monitor.peripheral)
+    }
+
+    public func hasSaved(peripheral: HeartRateMonitor) -> Bool {
+        return self.central.has(saved: peripheral.peripheral)
     }
 
     public func connectToLastSavedMonitor() -> Observable<HeartRateMonitor> {
         connectToFirstMonitorBag = DisposeBag()
         let savedList = self.central.savedPeripheralUUIDs
         DispatchQueue.main.async {
-            self.monitors
+            self.peripherals
                 .map{ monitors -> HeartRateMonitor? in
                     return monitors.last{ savedList.contains($0.uuid) }
                 }
@@ -99,6 +103,7 @@ extension HeartRateMonitorCentral : SpecifiedBluetoothCentral{
         }
     }
 
+    //MARK: - private
 
     private func createHeartRateMonitor(from peripheral:Peripheral) -> Observable<HeartRateMonitor>{
         return .just(HeartRateMonitor(peripheral: peripheral, central: self))

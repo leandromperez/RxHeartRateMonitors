@@ -16,7 +16,7 @@ import RxCocoa
 public class HeartRateMonitor {
     
     private weak var central : HeartRateMonitorCentral!
-    private var peripheral : Peripheral
+    private(set) var peripheral : Peripheral
 
     public init(peripheral:Peripheral, central: HeartRateMonitorCentral) {
         self.peripheral = peripheral
